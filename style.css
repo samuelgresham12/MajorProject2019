@@ -1,0 +1,10 @@
+#headermain {
+    background-color: lightgray;
+    height: 10%;
+}
+
+#bottom {
+    position: absolute;
+  bottom: 10px;
+}
+

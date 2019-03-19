@@ -1,0 +1,36 @@
+#lgnheader {
+    text-align: center;
+}
+
+#lgnspace {
+    align-content: center;
+    width: 80%;
+}
+
+#input {
+    box-align: center;
+    margin: 0 auto;
+    width: 50%; 
+}
+
+#bottom {
+    position: absolute;
+  bottom: 10px;
+  width: 99%
+}
+
+#BottomR {
+    position: absolute;
+  bottom: 2px;
+  width: 20%;
+  Right: 2px
+}
+
+#BottomL {
+    position: absolute;
+  bottom: 10px;
+  width: 20%;
+  Left: 10px
+}
+
+
