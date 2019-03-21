@@ -54,7 +54,7 @@ function loginRedirect() {
     alert("Login Successful.")
     sessionStorage.setItem("auth", true);
     sessionStorage.setItem("stID", username);
-    window.open("C:/Users/samue/Documents/Code/RManager/main.html","_self");
+    window.open("C:/Users/samue/Documents/Code/MajorProject2019/main.html","_self");
 }
 
 function acccreateRedirect () {
