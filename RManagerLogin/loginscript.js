@@ -68,8 +68,20 @@ function goHomeLogin () {
 function encrypt(pass) {
     var passarray = pass.split("");
     var revarray = passarray.reverse();
-    var encstring = revarray.join();
-    return encstring;
+
+    for(i=0; i<revarray.length; i++){
+        switch(revarray[i]){
+            case "a":
+                revarray[i] = "01"
+                break;
+            case "b":
+                revarray[i] = "02"
+                break;
+        }
+    }
+
+    var finalstr = revarray.join();
+    return finalstr;
 
 }
 
