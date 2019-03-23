@@ -69,3 +69,37 @@ function table8() {
 function backHomeLgn() {
     window.open("main.html","_self")
 }
+
+
+// Is run when a booking is logged. 
+// Verifies and enters booking data into localStorage
+function addBooking () {
+    // Vars are defined here
+    var date = document.getElementById('dateInput').value;
+    var num = document.getElementById('numInput').value;
+    var window = document.getElementById('windowInput').value;
+
+    // This ensures that the user has entered data into the required fields
+    if(date == "" || num == "") {
+        alert("Whoops! Please enter data into all the fields.")
+    }
+
+if(bookingKeyArray[0] = undefined) {
+    var bookingKeyArray = [];
+}
+
+var distinct = false;
+
+    while(distinct = false) {
+        var bookingKey = generateKey()
+        if(bookingKeyArray.indexOf(bookingKey) == -1) {
+            bookingKeyArray[bookingKeyArray.length+1] = bookingKey;
+            distinct = true;
+        }
+    }
+}
+
+function generateKey() {
+    var key = Math.floor(Math.random()*1000)
+    return key;
+}
