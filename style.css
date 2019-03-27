@@ -11,3 +11,9 @@
 #btn100 {
   width: 100%;
 }
+
+.iconstyle {
+  vertical-align: middle !important;
+  display: inline-flex;
+
+}
