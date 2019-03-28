@@ -18,14 +18,10 @@
         <br>
     <p class='lead' style="display:inline" >Welcome to RManager, the best way to manage your restaurant. <br> <b>Your staff ID is:</b> <p style="display:inline" class='lead' id= 'stid'>StID</p></p>
     </div>
-       
-    <div class="container-fluid" id='bottom'>
-        <button id='infobutton' class="btn btn-outline-secondary" style="width:50%">What is RManager?</button>
-        <button id='helpbutton' class="btn btn-outline-secondary" style="width:49.5%">How to use RManager</button>
-    </div>
 
     <div class="container-fluid">
         <div class='row'>
+        <div class='col-sm'>
         <button class='btn btn-outline-secondary' id='btn100'>Manage Tables</button>
         </div>
         <div class="col-sm">
@@ -33,12 +29,12 @@
         </div>
         <br>
         <div class="col-sm">
-        <button class='btn btn-outline-success' id='btn100'>Create Booking</button>
+        <button class='btn btn-outline-success' id='btn100' value='clickme' onclick='window.open("createbooking.html","_self")'>Create Booking</button>
         </div>
         </div>
     </div>
 
-    <span class="border border-dark">
+    <span class="border border-dark" style="text-align: center;">
     <div class='container-fluid'>
         <div id='outline'> 
             <div class='row'>
@@ -73,5 +69,11 @@
     </div>
     </div>
     </span>
+
+    <div class="container-fluid">
+        <button id='infobutton' class="btn btn-outline-secondary" style="width:50%">What is RManager?</button>
+        <button id='helpbutton' class="btn btn-outline-secondary" style="width:49.5%">How to use RManager</button>
+    </div>
+
 </body>
 </html>
