@@ -7,34 +7,68 @@
     <title>New Boooking</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body onload="loadFunction()">
-        <script src="script.js"></script>
-
+        <div class='container-fluid'>
+<p style='display: inline;'>Logged in as: </p><p id='stid' style='display: inline;'></p>
         <h1 class='display-2' style='text-align: center;'>
             Create a New Booking
         </h1>
-
-        <div class='container-fluid' style='width: 60%'>
+        </div>
+        <div class='container-fluid' style='width: 60%;'>
             <br>
             <br>
             <div class='row'>
         <div class='col-sm' >
-                <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" id='username'>
+                <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" id='date'>
                 </div>
                 <div class='col-sm' >
-                <input type="number" step='1' max='10' min='1' class="form-control" placeholder="Number of People" aria-label="Username" aria-describedby="basic-addon1" id='username'>
+                        <select class="form-control" id='howMany'>
+                                <option value='1'>1 Person</option>
+                                <option value='2'>2 People</option>
+                                <option value='3'>3 People</option>
+                                <option value='4'>4 People</option>
+                                <option value='5'>5 People</option>
+                                <option value='6'>6 People</option>
+                                <option value='7'>7 People</option>
+                                <option value='8'>8 People</option>
+                        </select>
+                </div>
+                <div class='col-sm' class='form-control'>
+                        <select class="form-control" id='timeSelection'>
+                                <option value='6'>6:00 pm</option>
+                                <option value='7'>7:00 pm</option>
+                                <option value='8'>8:00 pm</option>
+                                <option value='9'>9:00 pm</option>
+                        </select>
                 </div>
                 <br>
             </div>
+
+
             <br>
-            <button class='btn btn-outline-primary'>
-                    Save Booking
+
+
+            <div class='row'>
+                <div class='col-sm'>
+                <select class="form-control" id='insideOut'>
+                    <option value='Inside Table'>Inside Table</option>
+                    <option value='Outside Table'>Outside Table</option>
+                </select>
+                </div>
+                <div class='col-sm'>
+                        <input type="text" class="form-control" placeholder="Name for Booking" aria-label="Username" aria-describedby="basic-addon1" id='name'>
+                </div>
+            </div>
+            <br>
+            <button class='btn btn-outline-primary' style='width: 100%' value='clickme' onclick='submitFunction()' id='submitButton'>
+                    Submit Booking
                 </button>
+                <br> <br>
+                <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick='window.open("main.html", "_self")' id='backButton'>Go Back and Discard Booking</button>
         </div>
-
-
-
 
 </body>
 </html>

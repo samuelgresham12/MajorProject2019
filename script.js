@@ -70,36 +70,38 @@ function backHomeLgn() {
     window.open("main.html","_self")
 }
 
+function submitFunction() {
+    var date = document.getElementById("date").value;
+    var numberOfPeople = document.getElementById("howMany").value;
+    var time = document.getElementById("timeSelection").value;
+    var tableLocation = document.getElementById("insideOut").value;
+    var name = document.getElementById("name").value;
 
-// Is run when a booking is logged. 
-// Verifies and enters booking data into localStorage
-function addBooking () {
-    // Vars are defined here
-    var date = document.getElementById('dateInput').value;
-    var num = document.getElementById('numInput').value;
-    var window = document.getElementById('windowInput').value;
+    console.log(date);
+    console.log(numberOfPeople);
+    console.log(time);
+    console.log(tableLocation);
+    console.log(name);
 
-    // This ensures that the user has entered data into the required fields
-    if(date == "" || num == "") {
-        alert("Whoops! Please enter data into all the fields.")
+    if(localStorage.getItem(name) != null) {
+        alert("That name alrady exists in records. Please change it or clear records.")
     }
-
-if(bookingKeyArray[0] = undefined) {
-    var bookingKeyArray = [];
-}
-
-var distinct = false;
-
-    while(distinct = false) {
-        var bookingKey = generateKey()
-        if(bookingKeyArray.indexOf(bookingKey) == -1) {
-            bookingKeyArray[bookingKeyArray.length+1] = bookingKey;
-            distinct = true;
+    else{
+        var bookingObject = new Object();
+        var bookingObject = {
+                bookingdate: date,
+                bookingtime: time,
+                number: numberOfPeople,
+                location: tableLocation,
         }
-    }
-}
+        
+        localStorage.setItem(name, JSON.stringify(bookingObject))
+        
+        $("#submitButton").fadeOut();
+        console.log(JSON.parse(localStorage.getItem(name)));
+        alert("Confirm the following details: \n Name: " + bookingObject.name; + "\n" + )
+        alert("Booking confirmed.")
+        window.open('main.html', '_self')
 
-function generateKey() {
-    var key = Math.floor(Math.random()*1000)
-    return key;
-}
+    }
+    }
