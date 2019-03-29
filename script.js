@@ -99,6 +99,15 @@ function submitFunction() {
     var tableLocation = document.getElementById("insideOut").value;
     var name = document.getElementById("name").value;
 
+    if(date == null || date == "") {
+        alert("Please enter text into the fields below.");
+        $("#date").css('color', 'red');
+        return;
+    }
+    else {
+        $('#date').removeAttr('style');
+    }
+
     // A console log is made of all variables for troubleshooting and recording
     console.log(date);
     console.log(numberOfPeople);
