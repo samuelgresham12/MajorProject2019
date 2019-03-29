@@ -1,3 +1,5 @@
+
+// Function which makes sure that the user is logged in and authenticated
 function loginEnsure() {
     if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
         alert("Whoops! Something went wrong. Please login again.")
@@ -21,11 +23,13 @@ function goHome() {
 
 }
 
-
+// Function which takes the user to the login page
 function goToLogin() {
     window.open("RManagerLogin/loginpage.html","_self")
 }
 
+// Function which clears the local storage for the user.
+// Verification is also used here to make sure the user is intentionally doing so.
 function clearLocal() {
     var confirmation = confirm("Are you sure you want to do that? \nClearing the local storage will delete all bookings, logins and data from RM. \nContinue?")
 
@@ -39,6 +43,7 @@ function clearLocal() {
     }
 }
 
+// This function runs when each page is loaded and does chores such as authentication and DOM manipulation
 function loadFunction() {
     if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
         alert("Whoops! Something went wrong. Please login again.")
@@ -47,6 +52,7 @@ function loadFunction() {
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
 }
 
+// The below functions open the respective page for each table.
 function table1() {
     window.open("table1.html", "_self")
 }
@@ -83,24 +89,31 @@ function backHomeLgn() {
     window.open("main.html","_self")
 }
 
+// This function is run when a new booking is made
 function submitFunction() {
+
+    // Here, variables are assigned from the respective document values
     var date = document.getElementById("date").value;
     var numberOfPeople = document.getElementById("howMany").value;
     var time = document.getElementById("timeSelection").value;
     var tableLocation = document.getElementById("insideOut").value;
     var name = document.getElementById("name").value;
 
+    // A console log is made of all variables for troubleshooting and recording
     console.log(date);
     console.log(numberOfPeople);
     console.log(time);
     console.log(tableLocation);
     console.log(name);
 
+    // Here, the program checks whether a record has already been made with the specific primary key.
     if(localStorage.getItem(name) != null) {
         alert("That name alrady exists in records. Please change it or clear records.")
     }
 
+    // This is run if the name is unique.
     else{
+        // Here, a new object is created with the parameters of the variables listed above.
         var bookingObject = new Object();
         var bookingObject = {
                 bookingname: name,
@@ -110,10 +123,12 @@ function submitFunction() {
                 location: tableLocation,
         }
         
-        
+        // The button is faded out using some JQuery
         $("#submitButton").fadeOut();
-        console.log(JSON.parse(localStorage.getItem(name)));
+
+        // A confirmation message appears with the respective details
         var confirmation = confirm("Confirm the following details: \nName: " + bookingObject.bookingname + "\nDate: " + bookingObject.bookingdate + "\nTime: " + bookingObject.bookingtime + "\nNumber: " + bookingObject.number + "\nLocation: " + bookingObject.location);
+        // This is run if the confirmation comes through as true
         if(confirmation == true){
 
             var datetime = date + time;
