@@ -45,6 +45,7 @@ function createAccount() {
 
         localStorage.setItem(username, encpas);
         alert("Success! Account Created.")
+        window.open("loginpage.html", "_self");
     }
 
 }

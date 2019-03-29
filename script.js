@@ -21,9 +21,22 @@ function goHome() {
 
 }
 
-//
+
 function goToLogin() {
     window.open("RManagerLogin/loginpage.html","_self")
+}
+
+function clearLocal() {
+    var confirmation = confirm("Are you sure you want to do that? \nClearing the local storage will delete all bookings, logins and data from RM. \nContinue?")
+
+    if(confirmation == true) {
+    localStorage.clear();
+    console.log("%cLocal storage was cleared. Approved by user.", "color: red; font-size: 20px;")
+    }
+    else {
+        alert("Ok then. \nLocal storage has not been cleared.");
+        console.log("%cLocal storage was NOT cleared. Aborted by user.", "color: red; font-size: 20px;")
+    }
 }
 
 function loadFunction() {
@@ -86,22 +99,51 @@ function submitFunction() {
     if(localStorage.getItem(name) != null) {
         alert("That name alrady exists in records. Please change it or clear records.")
     }
+
     else{
         var bookingObject = new Object();
         var bookingObject = {
+                bookingname: name,
                 bookingdate: date,
                 bookingtime: time,
                 number: numberOfPeople,
                 location: tableLocation,
         }
         
-        localStorage.setItem(name, JSON.stringify(bookingObject))
         
         $("#submitButton").fadeOut();
         console.log(JSON.parse(localStorage.getItem(name)));
-        alert("Confirm the following details: \n Name: " + bookingObject.name; + "\n" + )
-        alert("Booking confirmed.")
-        window.open('main.html', '_self')
+        var confirmation = confirm("Confirm the following details: \nName: " + bookingObject.bookingname + "\nDate: " + bookingObject.bookingdate + "\nTime: " + bookingObject.bookingtime + "\nNumber: " + bookingObject.number + "\nLocation: " + bookingObject.location);
+        if(confirmation == true){
 
+            var datetime = date + time;
+            console.log("DT: " + datetime);
+
+            if(localStorage.getItem(datetime) === undefined) {
+                localStorage.setItem(date, numberOfPeople);
+            }
+            else {
+                var dnum = localStorage.getItem(datetime);
+                dnum = Number(dnum) + Number(numberOfPeople);
+                localStorage.setItem(datetime, dnum);
+
+                if(Number(localStorage.getItem(datetime)) > 20) {
+                    alert("Whoops. Too many people are booked for that day and time.")
+                    console.log("%cToo many people booked that day. Booking aborted.", "color: red;");
+                    $("#submitButton").fadeIn(3000);
+
+                    return;
+                }
+
+            }
+
+            console.log("Total amouunt of people booked for that time: " + localStorage.getItem(datetime));
+            localStorage.setItem(name, JSON.stringify(bookingObject))
+            alert("Booking confirmed.")
+            //window.open('main.html', '_self')
+        }
+        else {
+            $("#submitButton").fadeIn(3000);
+        }
     }
     }
