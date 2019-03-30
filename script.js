@@ -167,7 +167,7 @@ function submitFunction() {
                 dnum = Number(dnum) + Number(numberOfPeople);
                 localStorage.setItem(datetime, dnum);
 
-                // If there are too many people, the program throws an error.
+                // If there are too many people booked in that specific time slot, the program throws an error.
                 if(Number(localStorage.getItem(datetime)) > 20) {
                     alert("Whoops. Too many people are booked for that day and time.")
                     console.log("%cToo many people booked that day. Booking aborted.", "color: red;");
@@ -190,4 +190,72 @@ function submitFunction() {
             $("#submitButton").fadeIn(3000);
         }
     }
+    }
+
+
+    function queryBooking () {
+        var input = document.getElementById("inputQuery").value;
+        sessionStorage.setItem('inp', input);
+
+        $('#bookingName').html("");
+        $('#bookingDate').html("");
+        $('#bookingTime').html("");
+        $('#bookingLocation').html("");
+        $('#bookingAmount').html("");
+
+        // Basic data validation to ensure the user entered something into the box.
+        if(input == "") {
+            alert("Please enter data into the box.")
+
+            // Puts an outline around the offending object to make it clear that nothing was entered there.
+            $("#inputQuery").css('outline', '1px solid red');
+            return;
+        }
+
+        else {
+            // If there is no data validation issue, the style (red outline around box) is removed (if it ever was set to red outline due to an error.)
+            $('#inputQuery').removeAttr('style');
+        }
+
+        if(localStorage.getItem(input) == undefined || localStorage.getItem(input) == null) {
+            alert("Sorry, I couldn't find any records for '" + input + "'. \n \nAre you sure you spelled it correctly?")
+        }
+
+        else {
+            var bookingDetails = JSON.parse(localStorage.getItem(input))
+
+            console.log(bookingDetails);
+
+            sessionStorage.setItem('bookingRef', input);
+
+            $('#resultsDiv').show()
+            $('#bookingName').html(bookingDetails.bookingname);
+            $('#bookingDate').html(bookingDetails.bookingdate);
+            $('#bookingTime').html(bookingDetails.bookingtime + ":00 pm");
+            $('#bookingLocation').html(bookingDetails.location);
+            $('#bookingAmount').html(bookingDetails.number + " people");
+
+        }
+    }
+
+    function eraseBooking() {
+        var input = sessionStorage.getItem('bookingRef')
+        var name = sessionStorage.getItem('inp');
+
+        if(input === undefined) {
+            console.log("%cERROR: Cannot find booking.", "color: red;")
+            alert("Please enter something in the text box above.")
+        }
+        else {
+            var confirmation = confirm("Are you sure you want to delete this booking?")
+
+            if(confirmation == false) {
+                console.log("Booking NOT deleted. Terminated by user.")
+            }
+            else if(confirmation == true) {
+                console.log('%cRecord deleted permanantly from LocalStorage. Permission from user recieved.', "color: red")
+                localStorage.removeItem(name);
+
+            }
+        }
     }
