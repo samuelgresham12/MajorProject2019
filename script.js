@@ -99,13 +99,26 @@ function submitFunction() {
     var tableLocation = document.getElementById("insideOut").value;
     var name = document.getElementById("name").value;
 
-    if(date == null || date == "") {
+    if(date == null || date == "" || name == "") {
         alert("Please enter text into the fields below.");
-        $("#date").css('color', 'red');
+        
+        if (date == null || date == "") {
+            $("#date").css('outline', '1px solid red');
+        }
+        else {
+            $('#date').removeAttr('style');
+        }
+        if (name == "") {
+            $("#name").css('outline', '1px solid red');
+        }
+        else {
+            $("#name").removeAttr('style');
+        }
         return;
     }
     else {
         $('#date').removeAttr('style');
+        $("#name").removeAttr('style');
     }
 
     // A console log is made of all variables for troubleshooting and recording
@@ -140,20 +153,25 @@ function submitFunction() {
         // This is run if the confirmation comes through as true
         if(confirmation == true){
 
+            //The primary key for the localstorage entry is generated using the booking date and time
             var datetime = date + time;
             console.log("DT: " + datetime);
 
+            // If the storage does not exist yet, it is created and filled with the booking number
             if(localStorage.getItem(datetime) === undefined) {
                 localStorage.setItem(date, numberOfPeople);
             }
+            // If localstorage has a record of the date/time, then the contents are incremented by the amount of people.
             else {
                 var dnum = localStorage.getItem(datetime);
                 dnum = Number(dnum) + Number(numberOfPeople);
                 localStorage.setItem(datetime, dnum);
 
+                // If there are too many people, the program throws an error.
                 if(Number(localStorage.getItem(datetime)) > 20) {
                     alert("Whoops. Too many people are booked for that day and time.")
                     console.log("%cToo many people booked that day. Booking aborted.", "color: red;");
+                    localStorage.getItem(datetime) = localStorage.getItem(datetime) - numberOfPeople;
                     $("#submitButton").fadeIn(3000);
 
                     return;
@@ -164,6 +182,8 @@ function submitFunction() {
             console.log("Total amouunt of people booked for that time: " + localStorage.getItem(datetime));
             localStorage.setItem(name, JSON.stringify(bookingObject))
             alert("Booking confirmed.")
+            $('#formcontainer').hide();
+            $('#successdiv').show()
             //window.open('main.html', '_self')
         }
         else {

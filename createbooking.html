@@ -17,7 +17,7 @@
             Create a New Booking
         </h1>
         </div>
-        <div class='container-fluid' style='width: 60%;'>
+        <div class='container-fluid' style='width: 60%;' id='formcontainer'>
             <br>
             <br>
             <div class='row'>
@@ -68,6 +68,12 @@
                 </button>
                 <br> <br>
                 <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick='window.open("main.html", "_self")' id='backButton'>Go Back and Discard Booking</button>
+        </div>
+
+        <div class='container-fluid' id='successdiv' style='display: none; width: 60%;'>
+                <br>
+        <h2 class='display'>Booking Completed.</h2>
+        <button class='btn btn-outline-primary' value='clickme' onclick="window.open('main.html', '_self')"> Go Back </button>
         </div>
 
 </body>
