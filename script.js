@@ -246,6 +246,9 @@ function submitFunction(dist) {
         var input = sessionStorage.getItem('bookingRef')
         var name = sessionStorage.getItem('inp');
 
+        console.log(name)
+        console.log(input)
+
         if(input === undefined) {
             console.log("%cERROR: Cannot find booking.", "color: red;")
             alert("Please enter something in the text box above.")
@@ -257,7 +260,12 @@ function submitFunction(dist) {
                 console.log("Booking NOT deleted. Terminated by user.")
             }
             else if(confirmation == true) {
-                console.log('%cRecord deleted permanantly from LocalStorage. Permission from user recieved.', "color: red")
+                console.log('%cRecord deleted permanantly from LocalStorage. Permission from user recieved.', "color: red");
+                var bookingobj = JSON.parse(localStorage.getItem(name));
+                var bookingnum = bookingobj.number;
+                var nightnum = localStorage.getItem(bookingobj.bookingdate + bookingobj.bookingtime);
+                var newsum = nightnum - bookingnum;
+                localStorage.setItem(bookingobj.bookingdate + bookingobj.bookingtime, newsum);
                 localStorage.removeItem(name);
 
             }
@@ -265,7 +273,7 @@ function submitFunction(dist) {
     }
 
 function editBooking() {
-    window.open('editBooking.html', "", "width=1000,height=1000")
+    window.open('editBooking.html', "", "width=1000,height=450")
 }
 
 function loadFunctionEdit() {
