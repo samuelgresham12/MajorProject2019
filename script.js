@@ -300,6 +300,7 @@ function updateFunction() {
     var tableLocation = document.getElementById("insideOut").value;
     var name = document.getElementById("name").value;
     var time = JSON.parse(localStorage.getItem(name)).bookingtime;
+    var date = JSON.parse(localStorage.getItem(name)).bookingdate;
 
     // A console log is made of all variables for troubleshooting and recording
     console.log(numberOfPeople);
