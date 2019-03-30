@@ -89,6 +89,8 @@ function backHomeLgn() {
     window.open("main.html","_self")
 }
 
+
+
 // This function is run when a new booking is made
 function submitFunction(dist) {
 
@@ -173,7 +175,7 @@ function submitFunction(dist) {
                 if(Number(localStorage.getItem(datetime)) > 20) {
                     alert("Whoops. Too many people are booked for that day and time.")
                     console.log("%cToo many people booked that day. Booking aborted.", "color: red;");
-                    localStorage.getItem(datetime) = localStorage.getItem(datetime) - numberOfPeople;
+                    localStorage.setItem(datetime, (localStorage.getItem(datetime) - Number(numberOfPeople)));
                     $("#submitButton").fadeIn(3000);
 
                     return;
