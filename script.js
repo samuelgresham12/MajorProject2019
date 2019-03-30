@@ -90,7 +90,7 @@ function backHomeLgn() {
 }
 
 // This function is run when a new booking is made
-function submitFunction() {
+function submitFunction(dist) {
 
     // Here, variables are assigned from the respective document values
     var date = document.getElementById("date").value;
@@ -128,13 +128,15 @@ function submitFunction() {
     console.log(tableLocation);
     console.log(name);
 
+    
     // Here, the program checks whether a record has already been made with the specific primary key.
     if(localStorage.getItem(name) != null) {
         alert("That name alrady exists in records. Please change it or clear records.")
+        return;
     }
 
-    // This is run if the name is unique.
     else{
+    // This is run if the name is unique.
         // Here, a new object is created with the parameters of the variables listed above.
         var bookingObject = new Object();
         var bookingObject = {
@@ -259,3 +261,121 @@ function submitFunction() {
             }
         }
     }
+
+function editBooking() {
+    window.open('editBooking.html', "", "width=1000,height=1000")
+}
+
+function loadFunctionEdit() {
+    if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
+        alert("Whoops! Something went wrong. Please login again.")
+        goHome();
+    }
+    document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
+    document.getElementById("itemcurrview").innerHTML = sessionStorage.getItem("inp");
+
+    var booking = JSON.parse(localStorage.getItem(sessionStorage.getItem('bookingRef')));
+    console.log(booking)
+    $('#date').val(booking.bookingdate);
+    $('#howMany').val(booking.number);
+    $('#timeSelecton').val(7);
+
+    if(booking.location == "Inside Table"){
+        $('#insideOut').val("Inside Table");
+    }
+    else if(booking.location == "Outside Table") {
+        $('#insideOut').val("Outside Table");
+    }
+
+    $('#name').val(booking.bookingname);
+    
+}
+
+function updateFunction() {
+
+    // Here, variables are assigned from the respective document values
+    var date = document.getElementById("date").value;
+    var numberOfPeople = document.getElementById("howMany").value;
+    var time = document.getElementById("timeSelection").value;
+    var tableLocation = document.getElementById("insideOut").value;
+    var name = document.getElementById("name").value;
+
+    if(date == null || date == "" || name == "") {
+        alert("Please enter text into the fields below.");
+        
+        if (date == null || date == "") {
+            $("#date").css('outline', '1px solid red');
+        }
+        else {
+            $('#date').removeAttr('style');
+        }
+        if (name == "") {
+            $("#name").css('outline', '1px solid red');
+        }
+        else {
+            $("#name").removeAttr('style');
+        }
+        return;
+    }
+    else {
+        $('#date').removeAttr('style');
+        $("#name").removeAttr('style');
+    }
+
+    // A console log is made of all variables for troubleshooting and recording
+    console.log(date);
+    console.log(numberOfPeople);
+    console.log(time);
+    console.log(tableLocation);
+    console.log(name);
+
+    // This is run if the name is unique.
+        // Here, a new object is created with the parameters of the variables listed above.
+        var bookingObject = new Object();
+        var bookingObject = {
+                bookingname: name,
+                bookingdate: date,
+                bookingtime: time,
+                number: numberOfPeople,
+                location: tableLocation,
+        }
+        
+        // The button is faded out using some JQuery
+        $("#submitButton").fadeOut();
+
+        // A confirmation message appears with the respective details
+        var confirmation = confirm("Confirm the following details: \nName: " + bookingObject.bookingname + "\nDate: " + bookingObject.bookingdate + "\nTime: " + bookingObject.bookingtime + "\nNumber: " + bookingObject.number + "\nLocation: " + bookingObject.location);
+        // This is run if the confirmation comes through as true
+        if(confirmation == true){
+
+            //The primary key for the localstorage entry is generated using the booking date and time
+            var datetime = date + time;
+            console.log("DT: " + datetime);
+
+            var booking = JSON.parse(localStorage.getItem(sessionStorage.getItem('bookingRef')));
+            var originalbookingnum = booking.number;
+            var numberoriginal = localStorage.getItem(datetime)
+            var numberminusold = numberoriginal - originalbookingnum
+            var finalnum = Number(numberminusold) + Number(bookingObject.number);
+
+            // If there are too many people booked in that specific time slot, the program throws an error.
+            if(finalnum > 20) {
+                alert("Whoops. Too many people are booked for that day and time.")
+                console.log("%cToo many people booked that day. Booking aborted.", "color: red;");
+                $("#submitButton").fadeIn(3000);
+
+                return;
+            }
+
+            localStorage.setItem(datetime, finalnum);
+
+            }
+
+            console.log("Total amouunt of people booked for that time: " + localStorage.getItem(datetime));
+            localStorage.setItem(name, JSON.stringify(bookingObject))
+            alert("Booking confirmed.")
+            $('#formcontainer').hide();
+            $('#successdiv').show()
+            window.close()
+            //window.open('main.html', '_self')
+        }
