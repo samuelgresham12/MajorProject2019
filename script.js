@@ -278,7 +278,7 @@ function loadFunctionEdit() {
     console.log(booking)
     $('#date').val(booking.bookingdate);
     $('#howMany').val(booking.number);
-    $('#timeSelecton').val(7);
+    $('#timeSelecton').val(1);
 
     if(booking.location == "Inside Table"){
         $('#insideOut').val("Inside Table");
@@ -294,38 +294,13 @@ function loadFunctionEdit() {
 function updateFunction() {
 
     // Here, variables are assigned from the respective document values
-    var date = document.getElementById("date").value;
     var numberOfPeople = document.getElementById("howMany").value;
-    var time = document.getElementById("timeSelection").value;
     var tableLocation = document.getElementById("insideOut").value;
     var name = document.getElementById("name").value;
-
-    if(date == null || date == "" || name == "") {
-        alert("Please enter text into the fields below.");
-        
-        if (date == null || date == "") {
-            $("#date").css('outline', '1px solid red');
-        }
-        else {
-            $('#date').removeAttr('style');
-        }
-        if (name == "") {
-            $("#name").css('outline', '1px solid red');
-        }
-        else {
-            $("#name").removeAttr('style');
-        }
-        return;
-    }
-    else {
-        $('#date').removeAttr('style');
-        $("#name").removeAttr('style');
-    }
+    var time = JSON.parse(localStorage.getItem(name)).bookingtime;
 
     // A console log is made of all variables for troubleshooting and recording
-    console.log(date);
     console.log(numberOfPeople);
-    console.log(time);
     console.log(tableLocation);
     console.log(name);
 
@@ -334,8 +309,8 @@ function updateFunction() {
         var bookingObject = new Object();
         var bookingObject = {
                 bookingname: name,
-                bookingdate: date,
-                bookingtime: time,
+                bookingdate: JSON.parse(localStorage.getItem(name)).bookingdate,
+                bookingtime: JSON.parse(localStorage.getItem(name)).bookingtime,
                 number: numberOfPeople,
                 location: tableLocation,
         }
