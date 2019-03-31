@@ -366,17 +366,20 @@ function updateFunction() {
 
             localStorage.setItem(datetime, finalnum);
 
-            }
+            
 
-            console.log("Total amouunt of people booked for that time: " + localStorage.getItem(datetime));
+            console.log("Total amount of people booked for that time: " + localStorage.getItem(datetime));
             localStorage.setItem(name, JSON.stringify(bookingObject))
             alert("Booking confirmed.")
             $('#formcontainer').hide();
             $('#successdiv').show()
             window.close()
-            //window.open('main.html', '_self')
+            window.close()
         }
-
+        else {
+            $("#submitButton").fadeIn(3000);
+        }
+    }
 
     // This function pushes two parameters into a textfile using the filesaver.js package
 function SaveAsFile(filecontent, filename) {
