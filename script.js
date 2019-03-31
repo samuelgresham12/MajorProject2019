@@ -34,6 +34,8 @@ function clearLocal() {
 
     if(confirmation == true) {
     localStorage.clear();
+    var emptarr = "";
+    localStorage.setItem("bookingsList", emptarr);
     console.log("%cLocal storage was cleared. Approved by user.", "color: red; font-size: 20px;")
     }
     else {
@@ -91,7 +93,7 @@ function backHomeLgn() {
 
 
 // This function is run when a new booking is made
-function submitFunction(dist) {
+function submitFunction() {
 
     // Here, variables are assigned from the respective document values
     var date = document.getElementById("date").value;
@@ -184,6 +186,10 @@ function submitFunction(dist) {
 
             console.log("Total amouunt of people booked for that time: " + localStorage.getItem(datetime));
             localStorage.setItem(name, JSON.stringify(bookingObject))
+            var namesarr = localStorage.getItem("bookingsList");
+            var newarr = namesarr + " " + bookingObject.bookingname;
+            localStorage.setItem("bookingsList", newarr);
+            
             alert("Booking confirmed.")
             $('#formcontainer').hide();
             $('#successdiv').show()
