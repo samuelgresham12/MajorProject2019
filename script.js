@@ -187,13 +187,12 @@ function submitFunction() {
             console.log("Total amouunt of people booked for that time: " + localStorage.getItem(datetime));
             localStorage.setItem(name, JSON.stringify(bookingObject))
             var namesarr = localStorage.getItem("bookingsList");
-            var newarr = namesarr + " " + bookingObject.bookingname;
+            var newarr = namesarr + bookingObject.bookingname + "^!";
             localStorage.setItem("bookingsList", newarr);
-            
             alert("Booking confirmed.")
             $('#formcontainer').hide();
             $('#successdiv').show()
-            //window.open('main.html', '_self')
+            window.open('main.html', '_self')
         }
         else {
             $("#submitButton").fadeIn(3000);
@@ -202,77 +201,76 @@ function submitFunction() {
     }
 
 
-    function queryBooking () {
-        var input = document.getElementById("inputQuery").value;
-        sessionStorage.setItem('inp', input);
+function queryBooking () {
+    var input = document.getElementById("inputQuery").value;
+    sessionStorage.setItem('inp', input);
 
-        $('#bookingName').html("");
-        $('#bookingDate').html("");
-        $('#bookingTime').html("");
-        $('#bookingLocation').html("");
-        $('#bookingAmount').html("");
+    $('#bookingName').html("");
+    $('#bookingDate').html("");
+    $('#bookingTime').html("");
+    $('#bookingLocation').html("");
+    $('#bookingAmount').html("");
 
-        // Basic data validation to ensure the user entered something into the box.
-        if(input == "") {
-            alert("Please enter data into the box.")
+    // Basic data validation to ensure the user entered something into the box.
+    if(input == "") {
+        alert("Please enter data into the box.")
 
-            // Puts an outline around the offending object to make it clear that nothing was entered there.
-            $("#inputQuery").css('outline', '1px solid red');
-            return;
+        // Puts an outline around the offending object to make it clear that nothing was entered there.
+        $("#inputQuery").css('outline', '1px solid red');
+        return;
         }
 
-        else {
-            // If there is no data validation issue, the style (red outline around box) is removed (if it ever was set to red outline due to an error.)
-            $('#inputQuery').removeAttr('style');
+    else {
+        // If there is no data validation issue, the style (red outline around box) is removed (if it ever was set to red outline due to an error.)
+        $('#inputQuery').removeAttr('style');
         }
 
-        if(localStorage.getItem(input) == undefined || localStorage.getItem(input) == null) {
-            alert("Sorry, I couldn't find any records for '" + input + "'. \n \nAre you sure you spelled it correctly?")
-        }
+    if(localStorage.getItem(input) == undefined || localStorage.getItem(input) == null) {
+        alert("Sorry, I couldn't find any records for '" + input + "'. \n \nAre you sure you spelled it correctly?")
+    }
 
-        else {
-            var bookingDetails = JSON.parse(localStorage.getItem(input))
+    else {
+        var bookingDetails = JSON.parse(localStorage.getItem(input))
 
-            console.log(bookingDetails);
+        console.log(bookingDetails);
 
-            sessionStorage.setItem('bookingRef', input);
+        sessionStorage.setItem('bookingRef', input);
 
-            $('#resultsDiv').show()
-            $('#bookingName').html(bookingDetails.bookingname);
-            $('#bookingDate').html(bookingDetails.bookingdate);
-            $('#bookingTime').html(bookingDetails.bookingtime + ":00 pm");
-            $('#bookingLocation').html(bookingDetails.location);
-            $('#bookingAmount').html(bookingDetails.number + " people");
-
+        $('#resultsDiv').show()
+        $('#bookingName').html(bookingDetails.bookingname);
+        $('#bookingDate').html(bookingDetails.bookingdate);
+        $('#bookingTime').html(bookingDetails.bookingtime + ":00 pm");
+        $('#bookingLocation').html(bookingDetails.location);
+        $('#bookingAmount').html(bookingDetails.number + " people");
         }
     }
 
-    function eraseBooking() {
-        var input = sessionStorage.getItem('bookingRef')
-        var name = sessionStorage.getItem('inp');
+// 
+function eraseBooking() {
+    var input = sessionStorage.getItem('bookingRef')
+    var name = sessionStorage.getItem('inp');
 
-        console.log(name)
-        console.log(input)
+    console.log(name)
+    console.log(input)
 
-        if(input === undefined) {
-            console.log("%cERROR: Cannot find booking.", "color: red;")
-            alert("Please enter something in the text box above.")
+    if(input === undefined) {
+        console.log("%cERROR: Cannot find booking.", "color: red;")
+        alert("Please enter something in the text box above.")
+    }
+    else {
+        var confirmation = confirm("Are you sure you want to delete this booking?")
+
+        if(confirmation == false) {
+            console.log("Booking NOT deleted. Terminated by user.")
         }
-        else {
-            var confirmation = confirm("Are you sure you want to delete this booking?")
-
-            if(confirmation == false) {
-                console.log("Booking NOT deleted. Terminated by user.")
-            }
-            else if(confirmation == true) {
-                console.log('%cRecord deleted permanantly from LocalStorage. Permission from user recieved.', "color: red");
-                var bookingobj = JSON.parse(localStorage.getItem(name));
-                var bookingnum = bookingobj.number;
-                var nightnum = localStorage.getItem(bookingobj.bookingdate + bookingobj.bookingtime);
-                var newsum = nightnum - bookingnum;
-                localStorage.setItem(bookingobj.bookingdate + bookingobj.bookingtime, newsum);
-                localStorage.removeItem(name);
-
+        else if(confirmation == true) {
+            console.log('%cRecord deleted permanantly from LocalStorage. Permission from user recieved.', "color: red");
+            var bookingobj = JSON.parse(localStorage.getItem(name));
+            var bookingnum = bookingobj.number;
+            var nightnum = localStorage.getItem(bookingobj.bookingdate + bookingobj.bookingtime);
+            var newsum = nightnum - bookingnum;
+            localStorage.setItem(bookingobj.bookingdate + bookingobj.bookingtime, newsum);
+            localStorage.removeItem(name);
             }
         }
     }
@@ -405,4 +403,30 @@ function prepareFile () {
     var outputStr = "Booking File Generated by RManager \r\nBooking Name: " + name + "\r\nBooking Date: " + date + "\r\nBooking Time: " + time + "\r\nAmount of People: " + number + "\r\nLocation: " + location
     // Function SaveAsFile is called with parameters of (content, filename)
     SaveAsFile(outputStr, name + date + ".txt");
+}
+
+function splitRecords () {
+    var recordstr = localStorage.getItem("bookingsList");
+    var recordarr = recordstr.split("^!");
+    return recordarr;
+}
+
+// DOESNT WORK YET M8
+function searchRoutine(searchparam, result) {
+
+    var sp = searchparam
+    var recordarray = splitRecords() 
+    var i = 0
+    //var l = recordarray.length;
+    console.log(JSON.parse(localStorage.getItem(recordarray[i])))
+
+    /* 
+    for (i = 0; i < l; i++) {
+        var object = JSON.parse(localStorage.getItem(recordarray[i]))
+        if (object.sp == result) {
+
+        }
     }
+    */
+
+}
