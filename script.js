@@ -280,6 +280,8 @@ function editBooking() {
     else{window.open('editBooking.html', "", "width=1000,height=450")}
 }
 
+// This function is run when the edit booking popup is run 
+// It authenticates and subsequently fills in the fields with the stored data
 function loadFunctionEdit() {
     if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
         alert("Whoops! Something went wrong. Please login again.")
@@ -288,19 +290,18 @@ function loadFunctionEdit() {
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
     document.getElementById("itemcurrview").innerHTML = sessionStorage.getItem("inp");
 
+    // This block replaces the fields with the data which is stored in localStorage
     var booking = JSON.parse(localStorage.getItem(sessionStorage.getItem('bookingRef')));
     console.log(booking)
     $('#date').val(booking.bookingdate);
     $('#howMany').val(booking.number);
     $('#timeSelecton').val(1);
-
     if(booking.location == "Inside Table"){
         $('#insideOut').val("Inside Table");
     }
     else if(booking.location == "Outside Table") {
         $('#insideOut').val("Outside Table");
     }
-
     $('#name').val(booking.bookingname);
     
 }
