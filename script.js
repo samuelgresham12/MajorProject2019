@@ -272,7 +272,11 @@ function submitFunction(dist) {
     }
 
 function editBooking() {
-    window.open('editBooking.html', "", "width=1000,height=450")
+    var input = document.getElementById("inputQuery").value;
+    if(localStorage.getItem(input) == undefined) {
+        alert("Whoops! \nI can't seem to find that record.")
+    }
+    else{window.open('editBooking.html', "", "width=1000,height=450")}
 }
 
 function loadFunctionEdit() {
