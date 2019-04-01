@@ -489,3 +489,25 @@ function query(type) {
         alert ("Whoops, something went wrong. \n \nPlease try again.")
     }
 }
+
+// This is a prototype function for the dynamic UI found on the table allocation wizard.
+function fadeTest() {
+
+    var inp = document.getElementById("date").value;
+
+    if(inp != "") {
+    $('#cont1').fadeOut(200);
+    setTimeout(function(){$('#cont2').fadeIn(250);}, 200);
+    localStorage.setItem("alldate", inp);
+    }
+    else {
+        alert("Please enter something in the box below.")
+    }
+}
+
+// This is the main function for table allocation (WIP)
+function allocate() {
+    var date = localStorage.getItem("alldate");
+
+
+}
