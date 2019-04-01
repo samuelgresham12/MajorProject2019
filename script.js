@@ -411,11 +411,14 @@ function splitRecords () {
     return recordarr;
 }
 
-// Queries the bookings based on date or date/time 
+// Queries the bookings based on date or date/time
+// Acts as a shell for the search functions and puts string together
 function searchRoutine(searchparam, result) {
 
+    // This calls the splitrecords function which splits the records into an array of keys
     var recordarray = splitRecords() 
 
+    // This decides what search to do
     switch (searchparam) {
         case "date":
             var resultarr = searchByDate(recordarray, result);
@@ -425,10 +428,9 @@ function searchRoutine(searchparam, result) {
             break;
     }
 
-    console.log(resultarr);
-    
     var string = "";
 
+    // This block puts together the string which is then saved as a txt.
     string = string + "Record made by RManager. \r\nRecord for date: " + result;
     var l = resultarr.length;
 
@@ -440,14 +442,17 @@ function searchRoutine(searchparam, result) {
 
     string = string + "\r\n \r\nQuery Complete."
 
+    // The file is saved here by calling the SaveAsFile function with params
     SaveAsFile(string, result);
 }
+
 
 // Function which searches by date
 function searchByDate(arr, result) {
     var l = arr.length;
     var truearr = [];
 
+    // This loop block loops through and checks whether the criteria is met for each record in localStorage
     for (i = 0; i < l; i++) {
         var objct = JSON.parse(localStorage.getItem(arr[i]))
         if (objct == null) {}
@@ -459,11 +464,13 @@ function searchByDate(arr, result) {
     return truearr;
 }
 
+
 // Function which searches by both date and time
 function searchByTimeDate(arr, result) {
     var l = arr.length;
     var truearr = [];
 
+    // This loop block loops through and checks whether the criteria is met for each record in localStorage
     for (i = 0; i < l; i++) {
         var objct = JSON.parse(localStorage.getItem(arr[i]))
         if (objct == null) {}
@@ -475,6 +482,9 @@ function searchByTimeDate(arr, result) {
     return truearr;
 }
 
+
+// This function is the front-end interface for the query page. 
+// It calls the respective function (searchRoutine) if the input critera are met
 function query(type) {
     var date = document.getElementById("date").value;
     var time = document.getElementById("dateSelection").value;
