@@ -414,19 +414,27 @@ function splitRecords () {
 // DOESNT WORK YET M8
 function searchRoutine(searchparam, result) {
 
-    var sp = searchparam
     var recordarray = splitRecords() 
-    var i = 0
-    //var l = recordarray.length;
-    console.log(JSON.parse(localStorage.getItem(recordarray[i])))
 
-    /* 
+    switch (searchparam) {
+        case "date":
+            searchByDate(recordarray, result);
+            break;
+        case "time/date":
+            searchByTimeDate(recordarray, result);
+            break;
+    }
+}
+
+// Function which searches by date (untested)
+function searchByDate(arr, result) {
+    var l = arr.length;
+    var truearr = [];
+
     for (i = 0; i < l; i++) {
-        var object = JSON.parse(localStorage.getItem(recordarray[i]))
-        if (object.sp == result) {
-
+        var objct = JSON.parse(localStorage.getItem(arr[i]))
+        if(objct.bookingdate == result) {
+            truearr.push(objct.bookingdate);
         }
     }
-    */
-
 }
