@@ -418,12 +418,14 @@ function searchRoutine(searchparam, result) {
 
     switch (searchparam) {
         case "date":
-            searchByDate(recordarray, result);
+            var resultarr = searchByDate(recordarray, result);
             break;
         case "time/date":
-            searchByTimeDate(recordarray, result);
+            var resultarr = searchByTimeDate(recordarray, result);
             break;
     }
+
+    console.log(resultarr);
 }
 
 // Function which searches by date (untested)
@@ -437,10 +439,12 @@ function searchByDate(arr, result) {
             truearr.push(objct.bookingdate);
         }
     }
+
+    return truearr;
 }
 
 // Function which searches by both date and time (also untested)
-function searchByDateTime(arr, result) {
+function searchByTimeDate(arr, result) {
     var l = arr.length;
     var truearr = [];
 
@@ -450,4 +454,6 @@ function searchByDateTime(arr, result) {
             truearr.push(objct.bookingdate);
         }
     }
+
+    return truearr;
 }
