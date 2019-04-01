@@ -411,7 +411,7 @@ function splitRecords () {
     return recordarr;
 }
 
-// DOESNT WORK YET M8
+// Queries the bookings based on date or date/time 
 function searchRoutine(searchparam, result) {
 
     var recordarray = splitRecords() 
@@ -426,34 +426,52 @@ function searchRoutine(searchparam, result) {
     }
 
     console.log(resultarr);
+    return resultarr;
 }
 
-// Function which searches by date (untested)
+// Function which searches by date
 function searchByDate(arr, result) {
     var l = arr.length;
     var truearr = [];
 
     for (i = 0; i < l; i++) {
         var objct = JSON.parse(localStorage.getItem(arr[i]))
-        if(objct.bookingdate == result) {
-            truearr.push(objct.bookingdate);
+        if (objct == null) {}
+        else if(objct.bookingdate == result) {
+            truearr.push(objct.bookingname);
         }
     }
 
     return truearr;
 }
 
-// Function which searches by both date and time (also untested)
+// Function which searches by both date and time
 function searchByTimeDate(arr, result) {
     var l = arr.length;
     var truearr = [];
 
     for (i = 0; i < l; i++) {
         var objct = JSON.parse(localStorage.getItem(arr[i]))
-        if(objct.bookingdate + objct.bookingtime == result) {
-            truearr.push(objct.bookingdate);
+        if (objct == null) {}
+        else if(objct.bookingdate + objct.bookingtime == result) {
+            truearr.push(objct.bookingname);
         }
     }
 
     return truearr;
+}
+
+function query(type) {
+    var date = document.getElementById("date").value;
+    var time = document.getElementById("dateSelection").value;
+
+    if(type == "date") {
+        searchRoutine("date", date);
+    }
+    else if (type == "dt") {
+        searchRoutine("time/date", date + time);
+    }
+    else {
+        alert ("Whoops, something went wrong. \n \nPlease try again.")
+    }
 }

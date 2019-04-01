@@ -13,8 +13,7 @@
 <body onload="loadFunction()">
         <script src="script.js"></script>
     <div class="container-fluid" id='headermain'>
-            <img style="padding: 0 15px; float: left;" src='Icon1.png' alt="RManager Logo" height="9%" width="9%" value="clickme" onclick="goHome();">
-        <h1 class='display-2'> RManager Home </h1>
+            <h3 class='display'>Manage Bookings</h3>
     </div>
     <div class="container-fluid" id='txt'>
         <br>
@@ -22,13 +21,13 @@
     </div>
 
     <div class='container-fluid' id='options' style='width: 70%; align-content: center;'>
-        <input type="text" placeholder='Booking Name Here' class="form-control" width: 100%;' id='inputQuery'> <br>
+        <input type="text" placeholder='Booking Name Here' class="form-control" width: 100%;' id='inputQuery' >  <br>
         <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick='queryBooking()' id='btnGo'>Query Records</button>
     </div>
 
     <div class='container-fluid' id='resultsdDiv' style='width: 70%;'>
         <br> 
-        <h3 class='display-4'>Booking Query Results: </h3> <br>
+        <h3 class='display-4'>Booking Query Results: </h3> 
         <p id='inline'><b>Booking Name: </b></p><p id='bookingName' style='display: inline;'></p> <br> <br>
         <p id='inline'><b>Booking Date: </b></p><p id='bookingDate' style='display: inline;'></p> <br><br>
         <p id='inline'><b>Booking Time: </b></p><p id='bookingTime' style='display: inline;'></p> <br><br>
@@ -43,6 +42,11 @@
         <div class='col-sm'>
                 <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick='prepareFile()'>Generate a File of this Booking</button>
         </div>
+        </div>
+        <div class='row'>
+            <div class='col-sm'> <br>
+                <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick="window.open('query.html', '', 'width=1000,height=450')">More Booking Queries...</button>
+            </div>
         </div>
     </div>
 

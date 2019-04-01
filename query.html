@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Query</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script src='script.js'></script>
+</head>
+<body>
+    <div class="container-fluid" style='width: 80%; align-content: center;'> <br>
+        <h3 class='display'>
+            New Query
+        </h3>
+        <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" id='date' style='align-content: center;'> <br>
+    <select id='dateSelection' class="form-control" style='align-content: center;'>
+            <option value='6'>6:00 pm</option>
+            <option value='7'>7:00 pm</option>
+            <option value='8'>8:00 pm</option>
+            <option value='9'>9:00 pm</option>
+    </select>
+
+    <br>
+
+    <div class='row'>
+        <div class='col-sm'>
+                <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick="query('date')">Query by Date Only</button>
+        </div>
+        <div class='col-sm'>
+                <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick="query('dt')">Query by Date and Time</button>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='col-sm'> <br>
+            <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick="window.close()">Go Back...</button>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
