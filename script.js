@@ -426,7 +426,21 @@ function searchRoutine(searchparam, result) {
     }
 
     console.log(resultarr);
-    return resultarr;
+    
+    var string = "";
+
+    string = string + "Record made by RManager. \r\nRecord for date: " + result;
+    var l = resultarr.length;
+
+    for (i = 0; i < l; i++) {
+        obj = JSON.parse(localStorage.getItem(resultarr[i]))
+        string = string + "\r\n \r\nName: " + obj.bookingname + "\r\nDate: " + obj.bookingdate + "\r\nTime: " + obj.bookingtime + "\r\nNumber of People: " +
+        obj.number + "\r\nLocation: " + obj.location;
+    }
+
+    string = string + "\r\n \r\nQuery Complete."
+
+    SaveAsFile(string, result);
 }
 
 // Function which searches by date
