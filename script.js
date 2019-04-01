@@ -438,3 +438,16 @@ function searchByDate(arr, result) {
         }
     }
 }
+
+// Function which searches by both date and time (also untested)
+function searchByDateTime(arr, result) {
+    var l = arr.length;
+    var truearr = [];
+
+    for (i = 0; i < l; i++) {
+        var objct = JSON.parse(localStorage.getItem(arr[i]))
+        if(objct.bookingdate + objct.bookingtime == result) {
+            truearr.push(objct.bookingdate);
+        }
+    }
+}
