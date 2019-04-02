@@ -148,6 +148,7 @@ function submitFunction() {
                 bookingtime: time,
                 number: numberOfPeople,
                 location: tableLocation,
+                creationDate: date.Now()
         }
         
         // The button is faded out using some JQuery
@@ -518,6 +519,31 @@ function fadeTest() {
 // This is the main function for table allocation (WIP)
 function allocate() {
     var date = localStorage.getItem("alldate");
+    var datenum6 = localStorage.getItem(date + 6);
+    var datenum7 = localStorage.getItem(date + 7);
+    var datenum8 = localStorage.getItem(date + 8);
+    var datenum9 = localStorage.getItem(date + 9);
+
+    var numarray = [datenum6, datenum7, datenum8, datenum9];
+    var faterr = false;
+
+    for(i=0;i<numarray.length;i++) {
+        if(numarray[i] > 20) {
+            console.log("%cFatal error: " + numarray[i] + " (index " + i + ") is too big. Stopped operating.", "color: yellow;")
+            faterr = true;
+        }
+        if(numarray[i] == null){
+            console.log("%cOperational error: " + numarray[i] + " (index " + i + ") found (no bookings for this time). Continued operating.", "background-color: yellow;")
+        }
+    }
+    if (faterr == true) {return;}
+
+    if(datenum6 == null && datenum7 == null && datenum8 == null && datenum9 == null) {
+        setTimeout(function(){$('#cont3').fadeIn(250);}, 500);
+    }
+
+    
+
 
 
 }
