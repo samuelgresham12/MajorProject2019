@@ -148,7 +148,7 @@ function submitFunction() {
                 bookingtime: time,
                 number: numberOfPeople,
                 location: tableLocation,
-                creationDate: date.Now()
+                creationDate: Date.now()
         }
         
         // The button is faded out using some JQuery
@@ -527,6 +527,7 @@ function allocate() {
     var numarray = [datenum6, datenum7, datenum8, datenum9];
     var faterr = false;
 
+    // Here, each part of the array is incremented and checked if it is over 20 or 0
     for(i=0;i<numarray.length;i++) {
         if(numarray[i] > 20) {
             console.log("%cFatal error: " + numarray[i] + " (index " + i + ") is too big. Stopped operating.", "color: yellow;")
@@ -538,12 +539,40 @@ function allocate() {
     }
     if (faterr == true) {return;}
 
+    // This is run if all of the numbers are equal to null (as in, there are no registered bookings for that day)
+    // It shows a div which tells the user that there are no active bookings for that date.
     if(datenum6 == null && datenum7 == null && datenum8 == null && datenum9 == null) {
         setTimeout(function(){$('#cont3').fadeIn(250);}, 500);
+        return;
     }
 
-    
+    // The search by time / date function is run to get an array of bookigns for each time.
+    var all6 = searchRoutine("time/date", 6);
+    var all7 = searchRoutine("time/date", 7);
+    var all8 = searchRoutine("time/date", 8);
+    var all9 = searchRoutine("time/date", 9);
+
+    // A function is called to search to search for inside/outside booking for each time-date combination.
+    var outArr6 = getOutsideTables(all6,"Outside Table");
+    var outArr7 = getOutsideTables(all7,"Outside Table");
+    var outArr8 = getOutsideTables(all8,"Outside Table");
+    var outArr9 = getOutsideTables(all9,"Outside Table");
+}
 
 
+// This function gets the outside tables for any given date/time combination
+function getOutsideTables(arr, result) {
+    var l = arr.length;
+    var truearr = [];
 
+    // This loop block loops through and checks whether the criteria is met for each record in localStorage
+    for (i = 0; i < l; i++) {
+        var objct = JSON.parse(localStorage.getItem(arr[i]))
+        if (objct == null) {}
+        else if(objct.bookingdate + objct.location == result) {
+            truearr.push(objct.bookingname);
+        }
+    }
+
+    return truearr;
 }
