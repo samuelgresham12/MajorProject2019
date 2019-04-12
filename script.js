@@ -547,10 +547,10 @@ function allocate() {
     }
 
     // The search by time / date function is run to get an array of bookigns for each time.
-    var all6 = searchRoutine("time/date", 6);
-    var all7 = searchRoutine("time/date", 7);
-    var all8 = searchRoutine("time/date", 8);
-    var all9 = searchRoutine("time/date", 9);
+    var all6 = searchRoutine("time/date", date + 6);
+    var all7 = searchRoutine("time/date", date + 7);
+    var all8 = searchRoutine("time/date", date + 8);
+    var all9 = searchRoutine("time/date", date + 9);
 
     // A function is called to search to search for inside/outside booking for each time-date combination.
     var outArr6 = getOutsideTables(all6,"Outside Table");
@@ -573,6 +573,5 @@ function getOutsideTables(arr, result) {
             truearr.push(objct.bookingname);
         }
     }
-
     return truearr;
 }
