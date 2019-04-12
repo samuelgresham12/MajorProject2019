@@ -516,6 +516,7 @@ function fadeTest() {
     }
 }
 
+/*
 // This is the main function for table allocation (WIP)
 function allocate() {
     var date = localStorage.getItem("alldate");
@@ -574,4 +575,22 @@ function getOutsideTables(arr, result) {
         }
     }
     return truearr;
+}
+
+*/
+
+function getAllBookingsFile() {
+    $("#btn1").fadeOut()
+    $("#btn2").fadeOut()
+    setTimeout(function(){ $("#results").fadeIn(); }, 1000)
+    var allrecords = splitRecords();
+    for(i=0;i<allrecords.length;i++){
+        if (allrecords[i] == null) {}
+        else{
+            allobjct = JSON.parse(localStorage.getItem(allrecords[i]));
+            if(allobjct != null){
+            document.getElementById("results").value = document.getElementById("results").value + "Name: " + allobjct.bookingname + "\nDate: " + allobjct.bookingdate + "\nTime: " + allobjct.bookingtime + "\nLocation: " + allobjct.location + "\nNumber: " + allobjct.number + "\n\n";
+        }
+        }
+    }
 }

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RM Admin Login</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -15,7 +16,9 @@
         </div>
 
         <div class='container-fluid' style='width: 70%;'> <br> <br>
-        <button class='btn btn-outline-secondary' style='width:100%;' value='clickme' onclick='clearLocal()'>Clear Local Storage</button>
+        <button class='btn btn-outline-secondary' style='width:100%;' value='clickme' onclick='clearLocal()' id='btn1'>Clear Local Storage</button> <br> <br>
+        <button class='btn btn-outline-secondary' style='width:100%;' value='clickme' onclick='getAllBookingsFile()' id='btn2'>View All Bookings (html)</button> <br> <br>
+        <textarea class='form-control' id="results" cols="30" rows="10" style='display:none;'></textarea>
         </div>
 
           <script type="text/javascript" src="script.js"></script>
