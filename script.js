@@ -1,11 +1,18 @@
 // Function which makes sure that the user is logged in and authenticated
 function loginEnsure() {
     if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
-        alert("Whoops! Something went wrong. Please login again.")
+        swal("Whoops! Something went wrong.", "Please login again.")
         goHome();
     } 
 }
 
+function infoModal() {
+    swal({
+        title:'What is RManager?',
+        text:'RManager is a tool for restaurants to create, manage and manipulate bookings. \n To find out more, visit the docs.',
+        icon: 'info',
+    })
+}
 
 // Function which is called when the button to login as admin is called. 
 // Opens page "adminlogin.html" in the same tab/window (_self)
@@ -30,18 +37,28 @@ function goToLogin() {
 // Function which clears the local storage for the user.
 // Verification is also used here to make sure the user is intentionally doing so.
 function clearLocal() {
-    var confirmation = confirm("Are you sure you want to do that? \nClearing the local storage will delete all bookings, logins and data from RM. \nContinue?")
+    //var confirmation = confirm("Are you sure you want to do that? \nClearing the local storage will delete all bookings, logins and data from RM. \nContinue?")
 
-    if(confirmation == true) {
-    localStorage.clear();
-    var emptarr = "";
-    localStorage.setItem("bookingsList", emptarr);
-    console.log("%cLocal storage was cleared. Approved by user.", "color: red; font-size: 20px;")
-    }
-    else {
-        alert("Ok then. \nLocal storage has not been cleared.");
-        console.log("%cLocal storage was NOT cleared. Aborted by user.", "color: red; font-size: 20px;")
-    }
+    swal({
+        title: "Are you sure you want to do that?",
+        text: "Doing so will delete all usernames, passwords, bookings and other data.",
+        icon: "warning",
+        buttons: true,
+        dangermode: true}
+        )
+    .then((value) => {
+        if(value == true) {
+            localStorage.clear();
+            var emptarr = "";
+            localStorage.setItem("bookingsList", emptarr);
+            console.log("%cLocal storage was cleared. Approved by user.", "color: red; font-size: 20px;")
+            swal("All done!","Local storage has been cleared.")
+            }
+        else {
+            swal("Ok then.","Local storage has not been cleared.");
+            console.log("%cLocal storage was NOT cleared. Aborted by user.", "color: red; font-size: 20px;")
+            }
+      });
 }
 
 // This function runs when each page is loaded and does chores such as authentication and DOM manipulation
@@ -155,9 +172,15 @@ function submitFunction() {
         $("#submitButton").fadeOut();
 
         // A confirmation message appears with the respective details
-        var confirmation = confirm("Confirm the following details: \nName: " + bookingObject.bookingname + "\nDate: " + bookingObject.bookingdate + "\nTime: " + bookingObject.bookingtime + "\nNumber: " + bookingObject.number + "\nLocation: " + bookingObject.location);
-        // This is run if the confirmation comes through as true
-        if(confirmation == true){
+        var confirmation = swal({
+            title: "Confirm the following details:",
+            text: "Name: " + bookingObject.bookingname + "\nDate: " + bookingObject.bookingdate + "\nTime: " + bookingObject.bookingtime + "\nNumber: " + bookingObject.number + "\nLocation: " + bookingObject.location,
+            icon: "warning",
+            buttons: true})
+            .then((value) => {
+                console.log(value);
+                // This is run if the confirmation comes through as true
+            if(value == true){
 
             //The primary key for the localstorage entry is generated using the booking date and time
             var datetime = date + time;
@@ -190,15 +213,23 @@ function submitFunction() {
             var namesarr = localStorage.getItem("bookingsList");
             var newarr = namesarr + bookingObject.bookingname + "^!";
             localStorage.setItem("bookingsList", newarr);
-            alert("Booking confirmed.")
-            $('#formcontainer').hide();
-            $('#successdiv').show()
-            window.open('main.html', '_self')
+            swal({
+                title: "Booking confirmed.",
+                text: "You're all set. The booking is now in storage, ready for table allocation on the night.",
+                icon: "success"})
+                .then((value) => {
+                $('#formcontainer').hide();
+                $('#successdiv').show()
+                window.open('main.html', '_self')})
+
         }
         else {
             $("#submitButton").fadeIn(3000);
         }
-    }
+    
+            })
+        }
+        
     }
 
 
@@ -512,7 +543,11 @@ function fadeTest() {
     localStorage.setItem("alldate", inp);
     }
     else {
-        alert("Please enter something in the box below.")
+        swal({
+            title: "Whoops!",
+            text: "Please enter something in the box below.",
+            icon: "error"
+        });
     }
 }
 

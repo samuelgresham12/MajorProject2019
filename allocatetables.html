@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="script.js"></script>
 </head>
 <body onload="loadFunction()">
@@ -26,7 +27,7 @@
 
     <div class='container-fluid' style='width:80%; display:none;' id='cont2'>
     <p class='lead'><b>Ready to Run?</b></p>
-    <button class='btn btn-outline-primary' style='width:50%' value='clickme' onclick="$('#cont2').fadeOut(); allocate()">Yes</button>
+    <button class='btn btn-outline-primary' style='width:50%' value='clickme' onclick="$('#cont2').fadeOut(); swal({title: 'Damn!', text:'This function is still in development and will be available soon.', icon:'info'}); $('#cont4').toggle()">Yes</button>
     </div>
     </div>
 
@@ -34,6 +35,9 @@
         <p class='lead'><b>That's sad. <br> No bookings found for that night.</b></p>
         <button class='btn btn-outline-primary' style='width:50%' value='clickme' onclick="window.open('main.html', '_self')">Go Back</button>
         </div>
+    <div class='container-fluid' style='width:80%; display:none;' id='cont4'>
+        <button class='btn btn-outline-primary' style=' width:100%' value='clickme' onclick="window.open('main.html', '_self')">Go Home...</button>
+    </div>
         </div>
 
 <script>

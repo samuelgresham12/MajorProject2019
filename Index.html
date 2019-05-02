@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
 
 </head>
@@ -27,8 +28,9 @@
     
     <div class="container-fluid" id='bottom'>
 
-        <button id='infobutton' class="btn btn-outline-secondary" style="width:50%; vertical-align: middle;"> What is RManager?</button>
-        <button id='helpbutton' class="btn btn-outline-secondary" style="width:49.5%">How to use RManager</button>
+
+        <button id='infobutton' class="btn btn-outline-secondary" style="width:50%; vertical-align: middle;" value='clickme' onclick='infoModal()'> What is RManager?</button>
+        <button id='helpbutton' class="btn btn-outline-secondary" style="width:49.5%" value='clickme' onclick='window.open("Restaurant Manager User Guide.docx", "_self")'>Documentation</button>
     </div>
     <script src="script.js"></script>
 </body>

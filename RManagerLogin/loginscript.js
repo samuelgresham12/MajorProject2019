@@ -6,7 +6,11 @@ function loginStart() {
     var password = document.getElementById("password").value;
 
     if(username == "" || password == "") {
-        alert("Please enter your username and password in the fields below.");
+        swal({
+            title: "Please enter your username and password.",
+            text: "It seems like you didnt enter data into both boxes. \nPlease do so in order to log in.",
+            icon: "error"
+        });
         return;
     }
 
@@ -15,7 +19,11 @@ function loginStart() {
             loginRedirect();
         }
         else {
-            alert("Sorry, that pasword is wrong.")
+            swal({
+                title: "Whoops!",
+                text: "It looks like that username or password is incorrect. Please try again.",
+                icon: "error"
+            })
         }
       } else {
         alert("Sorry, your browser is incompatible. Please use another browser.")
@@ -30,12 +38,20 @@ function createAccount() {
     var reqpassword = document.getElementById("password").value;
 
     if(requsername == "" || requsername == "") {
-        alert("Please enter your username and password in the fields below.");
+        swal({
+            title: "Please enter your username and password in the fields.",
+            text: "Make sure you have entered text into both boxes and try again.",
+            icon: "error"
+        });
         return;
     }
 
     if (localStorage.getItem(requsername) !== null){
-        alert("Whoops! That username is already taken.")
+        swal({
+            title: "Whoops!",
+            text: "That username is already taken.",
+            icon: "error"
+        })
     }
     else {
         var username = requsername;
@@ -44,7 +60,12 @@ function createAccount() {
         var encpas = encrypt(password);
 
         localStorage.setItem(username, encpas);
-        alert("Success! Account Created.")
+        
+        swal({
+            title: "Success! Account Created.",
+            text: "You're all set! Now, navigate to the login page and login!",
+            icon: "success"
+        })
         window.open("loginpage.html", "_self");
     }
 
