@@ -7,6 +7,7 @@
     <title>RManager</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body onload="loadFunction()">
         <script src="script.js"></script>
@@ -39,40 +40,72 @@
         <div id='outline'> 
             <div class='row'>
                 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table1()"> <p class='lead' style="display:inline"><br><b>Table 1</b></p>
+                        <svg width="300" height="150">
+                                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+                        </svg> 
+                        <p><b>Table 1</b></p>
                 </div>
                 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table2()"> <p class='lead' style="display:inline"><br><b>Table 2</b></p>
+                        <svg width="300" height="150">
+                                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+                        </svg>
+                        <p><b>Table 2</b></p>              
                 </div>
                 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table3()"> <p class='lead' style="display:inline"><br><b>Table 3</b></p>
+                        <svg width="300" height="150">
+                                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+                        </svg>
+                        <p><b>Table 3</b></p>
                 </div>  
                 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table4()"> <p class='lead' style="display:inline"><br><b>Table 4</b></p>
+                        <svg width="300" height="150">
+                                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+                        </svg>
+                        <p><b>Table 4</b></p>
                 </div>
     </div>
 <br>
 <div class='row'>
 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table5()"> <p class='lead' style="display:inline"><br><b>Table 5</b></p>
+        <svg width="300" height="150">
+                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+        </svg>
+        <p><b>Table 5</b></p>
 </div>
 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table6()"> <p class='lead' style="display:inline"><br><b>Table 6</b></p>
+        <svg width="300" height="150">
+                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+        </svg>
+        <p><b>Table 6</b></p>
 </div>
 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table7()"> <p class='lead' style="display:inline"><br><b>Table 7</b></p>
-</div>
+        <svg width="300" height="150">
+                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+                <text x="3" y="15" font-weight="bold">Booking Status:
+                        <tspan x="3" y="35" id='test'>6pm</tspan>
+                        <tspan x="3" y="55">7pm</tspan>
+                        <tspan x="3" y="75">8pm</tspan>
+                        <tspan x="3" y="95">9pm</tspan>
+                </text>
+              </svg>
+        <p><b>Table 7</b></p>
+        </div>
 <div class='col-sm'>
-        <img src="table.svg" alt="" style="display:inline" value="clickme" onclick="table8()"> <p class='lead' style="display:inline"><br><b>Table 8</b></p>
-</div>
+        <svg width="300" height="150">
+                <rect width="300" height="150" style="fill:transparent;stroke:rgb(0,0,0);stroke-width:3px" />
+              </svg>
+        <p><b>Table 8</b></p>
+        </div>
             </div>
     </div>
     </div>
     </span>
 
+      
+
     <div class="container-fluid">
-        <button id='infobutton' class="btn btn-outline-secondary" style="width:50%">What is RManager?</button>
-        <button id='helpbutton' class="btn btn-outline-secondary" style="width:49.5%">How to use RManager</button>
+        <button id='infobutton' class="btn btn-outline-secondary" style="width:50%; vertical-align: middle;" value='clickme' onclick='infoModal()'> What is RManager?</button>
+        <button id='helpbutton' class="btn btn-outline-secondary" style="width:49.5%" value='clickme' onclick='window.open("Restaurant Manager User Guide.docx", "_self")'>Documentation</button>
     </div>
 
 </body>
