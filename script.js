@@ -70,45 +70,6 @@ function loadFunction() {
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
 }
 
-// The below functions open the respective page for each table.
-function table1() {
-    window.open("table1.html", "_self")
-}
-
-function table2() {
-    window.open("table2.html", "_self")
-}
-
-function table3() {
-    window.open("table3.html", "_self")
-}
-
-function table4() {
-    window.open("table4.html", "_self")
-}
-
-function table5() {
-    window.open("table5.html", "_self")
-}
-
-function table6() {
-    window.open("table6.html", "_self")
-}
-
-function table7() {
-    window.open("table7.html", "_self")
-}
-
-function table8() {
-    window.open("table8.html", "_self")
-}
-
-function backHomeLgn() {
-    window.open("main.html","_self")
-}
-
-
-
 // This function is run when a new booking is made
 function submitFunction() {
 
