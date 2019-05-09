@@ -332,9 +332,13 @@ function updateFunction() {
         $("#submitButton").fadeOut();
 
         // A confirmation message appears with the respective details
-        var confirmation = confirm("Confirm the following details: \nName: " + bookingObject.bookingname + "\nDate: " + bookingObject.bookingdate + "\nTime: " + bookingObject.bookingtime + "\nNumber: " + bookingObject.number + "\nLocation: " + bookingObject.location);
-        // This is run if the confirmation comes through as true
-        if(confirmation == true){
+        var confirmation = swal({title: "Please confirm these details:",
+                                text: "Confirm the following details: \nName: " + bookingObject.bookingname + "\nDate: " + bookingObject.bookingdate + "\nTime: " + bookingObject.bookingtime + "\nNumber: " + bookingObject.number + "\nLocation: " + bookingObject.location,
+                                buttons: true,
+                                icon: "info"})
+        .then((value) => {
+            // This is run if the confirmation comes through as true
+        if(value == true){
 
             //The primary key for the localstorage entry is generated using the booking date and time
             var datetime = date + time;
@@ -361,17 +365,23 @@ function updateFunction() {
 
             console.log("Total amount of people booked for that time: " + localStorage.getItem(datetime));
             localStorage.setItem(name, JSON.stringify(bookingObject))
-            alert("Booking confirmed.")
-            $('#formcontainer').hide();
-            $('#successdiv').show()
-            window.close()
-            window.close()
+            swal({title: "Booking confirmed.",
+                text: "The booking has been successfuly edited!",
+                icon: "success"})
+                .then(() => {
+                    $('#formcontainer').hide();
+                    $('#successdiv').show()
+                    window.close()
+                    window.close()
+                })
         }
         else {
             $("#submitButton").fadeIn(3000);
         }
-    }
 
+        })
+    }
+        
     // This function pushes two parameters into a textfile using the filesaver.js package
 function SaveAsFile(filecontent, filename) {
     // This creates a blob with the content parameter and as text type plain text
