@@ -15,7 +15,7 @@ function loginStart() {
     }
 
     if (typeof(Storage) !== "undefined") {
-        if(localStorage.getItem(username) == encrypt(password)){
+        if(localStorage.getItem("user//" + username) == encrypt(password)){
             loginRedirect();
         }
         else {
@@ -26,7 +26,7 @@ function loginStart() {
             })
         }
       } else {
-        alert("Sorry, your browser is incompatible. Please use another browser.")
+        swal("Sorry, your browser is incompatible. Please use another browser.")
       }
 
 }
@@ -59,7 +59,7 @@ function createAccount() {
 
         var encpas = encrypt(password);
 
-        localStorage.setItem(username, encpas);
+        localStorage.setItem("user//" + username, encpas);
         
         swal({
             title: "Success! Account Created.",

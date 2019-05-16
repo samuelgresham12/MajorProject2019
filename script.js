@@ -212,7 +212,6 @@ function queryBooking () {
         $("#inputQuery").css('outline', '1px solid red');
         return;
         }
-
     else {
         // If there is no data validation issue, the style (red outline around box) is removed (if it ever was set to red outline due to an error.)
         $('#inputQuery').removeAttr('style');
