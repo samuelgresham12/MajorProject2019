@@ -14,6 +14,10 @@ function infoModal() {
     })
 }
 
+function regLoad() {
+    window.open("start.html", "Start", "width=1000px height=1000px")
+}
+
 // Function which is called when the button to login as admin is called. 
 // Opens page "adminlogin.html" in the same tab/window (_self)
 function loginAsAdmin() {
@@ -599,3 +603,4 @@ function getAllBookingsFile() {
         }
     }
 }
+
