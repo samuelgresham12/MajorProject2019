@@ -15,7 +15,7 @@ function infoModal() {
 }
 
 function regLoad() {
-    window.open("start.html", "Start", "width=1000px height=1000px")
+    window.open("start.html", "_self")
 }
 
 // Function which is called when the button to login as admin is called. 
@@ -186,6 +186,7 @@ function submitFunction() {
                 $('#formcontainer').hide();
                 $('#successdiv').show()
                 window.open('main.html', '_self')})
+                
 
         }
         else {
