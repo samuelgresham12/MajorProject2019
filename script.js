@@ -74,7 +74,11 @@ function clearLocal() {
             var emptarr = "";
             localStorage.setItem("bookingsList", emptarr);
             console.log("%cLocal storage was cleared. Approved by user.", "color: red; font-size: 20px;")
-            swal("All done!","Local storage has been cleared.")
+            swal({
+                title: "Done!",
+                text: "Local Storage has been Cleared",
+                icon: "success"
+            })
             }
         else {
             swal("Ok then.","Local storage has not been cleared.");
