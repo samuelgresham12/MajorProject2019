@@ -1,4 +1,22 @@
+// The capacity of each table
+var cap = [5,5,5,8,5,5,5,8]
+
+var tabloc = {
+    // The location of each table
+    // True is inside
+    // False is outside
+    t1: true,
+    t2: true,
+    t3: true,
+    t4: false,
+    t5: true,
+    t6: true,
+    t7: true,
+    t8: false
+}
+
 // Function which makes sure that the user is logged in and authenticated
+// Done by checking whether auth (in s.storage) is not set to true.
 function loginEnsure() {
     if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
         swal("Whoops! Something went wrong.", "Please login again.")
@@ -9,7 +27,7 @@ function loginEnsure() {
 function infoModal() {
     swal({
         title:'What is RManager?',
-        text:'RManager is a tool for restaurants to create, manage and manipulate bookings. \n To find out more, visit the docs.',
+        text:'RManager is a tool for restaurants to create, manage and manipulate bookings. \nTo find out more, visit the docs.',
         icon: 'info',
     })
 }
@@ -242,7 +260,7 @@ function queryBooking () {
         }
     }
 
-// 
+// Function run when the booking is erased
 function eraseBooking() {
     var input = sessionStorage.getItem('bookingRef')
     var name = sessionStorage.getItem('inp');
@@ -272,7 +290,7 @@ function eraseBooking() {
         }
     }
 
-
+// Checks if the entered record is valid (ie. it exists) and then forwards on to popup for change
 function editBooking() {
     var input = document.getElementById("inputQuery").value;
     if(localStorage.getItem(input) == undefined) {
@@ -315,11 +333,6 @@ function updateFunction() {
     var name = document.getElementById("name").value;
     var time = JSON.parse(localStorage.getItem(name)).bookingtime;
     var date = JSON.parse(localStorage.getItem(name)).bookingdate;
-
-    // A console log is made of all variables for troubleshooting and recording
-    console.log(numberOfPeople);
-    console.log(tableLocation);
-    console.log(name);
 
     // This is run if the name is unique.
         // Here, a new object is created with the parameters of the variables listed above.
@@ -605,3 +618,114 @@ function getAllBookingsFile() {
     }
 }
 
+// Is run when a date is selected by the user
+function updateDate() {
+let date = document.getElementById("todayDate").value;
+if(date != ""){
+localStorage.setItem("//set/DateSet", date);
+swal({
+    title: "All set!",
+    text: "Today's date is now set to " + date + ".",
+    icon: "success"
+})
+}
+else {
+    swal({
+        title: "Whoops!",
+        text: "Make sure you entered something into the date field!",
+        icon: "warning"
+    })
+}
+}
+
+// This is run when a table allocation is made. It populates the booking name dropdown based on who is booked for that date and time.
+function fillDDown() {
+    // Some variables are defined
+    let time = document.getElementById("timeSelection").value;
+    let x = document.getElementById("bookings")
+
+    // The function is called to clear all existing items in the dropdown
+    removeOptions(document.getElementById("bookings"));
+
+    // Here, the options are queried and then populated into the dropown
+    if(time != ""){
+        let found = false;
+        let records = splitRecords();
+        for(i=0;i<(records.length -1); i++){
+            if(JSON.parse(localStorage.getItem(records[i])) != undefined) {
+            if(JSON.parse(localStorage.getItem(records[i])).bookingdate == localStorage.getItem("//set/DateSet")) {
+                if(JSON.parse(localStorage.getItem(records[i])).bookingtime == time){
+                    found = true;
+                    let option = document.createElement("option")
+                    option.text = JSON.parse(localStorage.getItem(records[i])).bookingname
+                    option.value = JSON.parse(localStorage.getItem(records[i])).bookingname
+                    x.add(option)
+                }
+            }
+        }
+    }
+        if(found == false) {
+            swal({
+                title: "Error",
+                text: "No bookings were found for that time and date (" + localStorage.getItem("//set/DateSet") + ", " + time + ":00 PM).",
+                icon: "error"
+            })
+        }
+    }
+    else {}
+    }
+
+function removeOptions(selectbox)
+{
+    var i;
+    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+}
+
+// Gets booking details on refresh of dropdown
+function getBookingDetails() {
+    let ddwn = document.getElementById("bookings")
+    let obj = JSON.parse(localStorage.getItem(ddwn.value))
+    
+    swal({
+        title: "Booking Details",
+        text: "Booking Name: " + obj.bookingname + "\nBooking Time: " + obj.bookingtime + "\nBooking Date: " + obj.bookingdate + "\nAmount of People: " + obj.number + "\nTime Booked: " + obj.creationDate + "\n"
+    })
+}
+
+function allocTab() {
+    let booking = document.getElementById("bookings")
+    let obj = JSON.parse(localStorage.getItem(booking.value))
+    let table = document.getElementById("tab")
+
+    let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + document.getElementById("timeSelection").value + table.value
+    if(obj.number > cap[table.value - 1]) {
+        swal({
+            title: "Over Capacity",
+            text: "Too many people for that table.",
+            icon: "error"
+        })
+    }
+    else if(localStorage.getItem(str) == "" || localStorage.getItem(str) == undefined || localStorage.getItem(str) == null){
+        let cont = {
+            booked: true,
+            bookingName: booking.value,
+            timeAllocated: Date.now()
+        }
+        localStorage.setItem(str, JSON.stringify(cont))
+        
+        swal({
+            title: "All set",
+            text: "Table has been successfuly allocated. Details are as follows: \nBooking Name: " + obj.bookingname + "\nBooking Time: " + obj.bookingtime + "\nBooking Date: " + obj.bookingdate + "\nAmount of People: " + obj.number + "\nAssigned to:" + table.value 
+        })
+    }
+    else{
+        swal({
+            title: "That Table is Already Booked",
+            text: "Already booked by: " + JSON.parse(localStorage.getItem(str)).bookingName,
+            icon: "error"
+        })
+    }
+}

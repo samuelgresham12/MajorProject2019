@@ -4,9 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register Start</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='../script.js'></script>
+    <title>Table Assign</title>
 </head>
 <body>
-    
+    <div class='container-fluid' style='width: 40%'>
+        <h1 class='display-2' style='text-align: center'>Table Assign</h1> <br>
+
+        <p style='text-align: center'><b>Time:</b></p> <br>
+        
+            <select class="form-control" id='timeSelection'>
+                <option value='6'>6:00 pm</option>
+                <option value='7'>7:00 pm</option>
+                <option value='8'>8:00 pm</option>
+                <option value='9'>9:00 pm</option>
+            </select> <br>
+            <button class='btn btn-outline-success' value='clickme' onclick='fillDDown()'>Find Bookings</button> <br><br>
+
+            <p style='text-align: center'><b>Booking name:</b></p>
+            <div class='row'>
+                <div class='col-9'>
+                    <select class="form-control" id='bookings'></select> 
+                </div>
+                <div class='col'>
+                    <button class='btn btn-outline-secondary' style='width: 100%' value='clickme' onclick='getBookingDetails()'>Details</button>
+                </div>
+            </div>
+            <br>
+            <p style='text-align: center'><b>Assign to:</b></p>
+            <select class="form-control" id='tab'>
+                <option value="1">Table 1</option>
+                <option value="2">Table 2</option>
+                <option value="3">Table 3</option>
+                <option value="4">Table 4</option>
+                <option value="5">Table 5</option>
+                <option value="6">Table 6</option>
+                <option value="7">Table 7</option>
+                <option value="8">Table 8</option>
+            </select> <br>
+            <button class='btn btn-outline-success' value='clickme' onclick='allocTab()' style='width: 100%'>Allocate Table</button> <br><br>         
+        </div>
 </body>
 </html>
