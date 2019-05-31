@@ -96,6 +96,35 @@ function loadFunction() {
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
 }
 
+// Runs on main page to populate tables with correct information
+function loadFunctionMain() {
+    if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
+        alert("Whoops! Something went wrong. Please login again.")
+        goHome();
+    }
+    document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
+
+    //document.getElementById("t6.6").innerHTML = "this is a test"
+    for(i=0;i<8;i++){
+        for(a=0;a<4;a++){
+            let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + (a+6) + (i+1)
+            if(JSON.parse(localStorage.getItem(str)) == null) {
+                let id = "t" + (i+1) + "." + (a+6);
+                document.getElementById(id).innerHTML = (a+6) + "PM: not booked "
+            }
+            else if(JSON.parse(localStorage.getItem(str)).booked == true){
+                let id = "t" + (i+1) + "." + (a+6);
+                let text = (a+6) + "PM: Booked By " + JSON.parse(localStorage.getItem(str)).bookingName + " (" + JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem(str)).bookingName)).number + " people)"
+                document.getElementById(id).innerHTML = text
+            }
+            else{
+                let id = "t" + (i+1) + "." + (a+6);
+                document.getElementById(id).innerHTML = (a+6) + "PM: not booked "
+            }
+        }
+    }
+}
+
 // This function is run when a new booking is made
 function submitFunction() {
 
