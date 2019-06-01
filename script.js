@@ -104,6 +104,7 @@ function loadFunctionMain() {
     }
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
 
+
     //document.getElementById("t6.6").innerHTML = "this is a test"
     for(i=0;i<8;i++){
         for(a=0;a<4;a++){
@@ -115,7 +116,11 @@ function loadFunctionMain() {
             else if(JSON.parse(localStorage.getItem(str)).booked == true){
                 let id = "t" + (i+1) + "." + (a+6);
                 let text = (a+6) + "PM: Booked By " + JSON.parse(localStorage.getItem(str)).bookingName + " (" + JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem(str)).bookingName)).number + " people)"
+                if(text.length > 35) {
+                    text = text.substring(0,33) + "..."
+                }
                 document.getElementById(id).innerHTML = text
+                document.getElementById(id).style.fill = "red"
             }
             else{
                 let id = "t" + (i+1) + "." + (a+6);
@@ -181,7 +186,8 @@ function submitFunction() {
                 bookingtime: time,
                 number: numberOfPeople,
                 location: tableLocation,
-                creationDate: Date.now()
+                creationDate: Date.now(),
+                alloc: false
         }
         
         // The button is faded out using some JQuery
@@ -684,25 +690,38 @@ function fillDDown() {
     if(time != ""){
         let found = false;
         let records = splitRecords();
+        let fbnalloc = false
         for(i=0;i<(records.length -1); i++){
             if(JSON.parse(localStorage.getItem(records[i])) != undefined) {
             if(JSON.parse(localStorage.getItem(records[i])).bookingdate == localStorage.getItem("//set/DateSet")) {
                 if(JSON.parse(localStorage.getItem(records[i])).bookingtime == time){
-                    found = true;
-                    let option = document.createElement("option")
-                    option.text = JSON.parse(localStorage.getItem(records[i])).bookingname
-                    option.value = JSON.parse(localStorage.getItem(records[i])).bookingname
-                    x.add(option)
+                    if(JSON.parse(localStorage.getItem(records[i])).alloc != true) {
+                        found = true;
+                        let option = document.createElement("option")
+                        option.text = JSON.parse(localStorage.getItem(records[i])).bookingname
+                        option.value = JSON.parse(localStorage.getItem(records[i])).bookingname
+                        x.add(option)
+                    }
+                    fbnalloc = true
                 }
             }
         }
     }
         if(found == false) {
+            if(fbnalloc == true) {
+                swal({
+                    title: "Error",
+                    text: "All bookings are allocated for that time (" + localStorage.getItem("//set/DateSet") + ", " + time + ":00 PM).",
+                    icon: "error"
+                })
+            }
+            else{
             swal({
                 title: "Error",
                 text: "No bookings were found for that time and date (" + localStorage.getItem("//set/DateSet") + ", " + time + ":00 PM).",
                 icon: "error"
             })
+        }
         }
     }
     else {}
@@ -733,6 +752,15 @@ function allocTab() {
     let obj = JSON.parse(localStorage.getItem(booking.value))
     let table = document.getElementById("tab")
 
+    if(booking.value == ""){
+        swal({
+            title: "Whoops",
+            text: "Please select a booking.",
+            icon: "error"
+        })
+        return
+    }
+
     let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + document.getElementById("timeSelection").value + table.value
     if(obj.number > cap[table.value - 1]) {
         swal({
@@ -740,6 +768,7 @@ function allocTab() {
             text: "Too many people for that table.",
             icon: "error"
         })
+        
     }
     else if(localStorage.getItem(str) == "" || localStorage.getItem(str) == undefined || localStorage.getItem(str) == null){
         let cont = {
@@ -748,6 +777,8 @@ function allocTab() {
             timeAllocated: Date.now()
         }
         localStorage.setItem(str, JSON.stringify(cont))
+        obj.alloc = true;
+        localStorage.setItem(booking.value, JSON.stringify(obj))
         
         swal({
             title: "All set",
@@ -762,3 +793,26 @@ function allocTab() {
         })
     }
 }
+
+function loadPopUp(table) {
+    i = table
+        for(a=0;a<4;a++){
+            let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + (a+6) + (i+1)
+            if(JSON.parse(localStorage.getItem(str)) == null) {
+                let id = "t" + (i+1) + "." + (a+6);
+                document.getElementById(id).innerHTML = (a+6) + "PM: not booked "
+            }
+            else if(JSON.parse(localStorage.getItem(str)).booked == true){
+                let id = "t" + (i+1) + "." + (a+6);
+                let text = (a+6) + "PM: Booked By " + JSON.parse(localStorage.getItem(str)).bookingName + " (" + JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem(str)).bookingName)).number + " people)"
+                document.getElementById(id).innerHTML = text
+                document.getElementById(id).style.color = "red";
+                document.getElementById(id).style.fontWeight = "bold";
+            }
+            else{
+                let id = "t" + (i+1) + "." + (a+6);
+                document.getElementById(id).innerHTML = (a+6) + "PM: not booked "
+            }
+        }
+    }
+ 
