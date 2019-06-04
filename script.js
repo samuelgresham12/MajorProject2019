@@ -781,8 +781,12 @@ function allocTab() {
         localStorage.setItem(booking.value, JSON.stringify(obj))
         
         swal({
-            title: "All set",
-            text: "Table has been successfuly allocated. Details are as follows: \nBooking Name: " + obj.bookingname + "\nBooking Time: " + obj.bookingtime + "\nBooking Date: " + obj.bookingdate + "\nAmount of People: " + obj.number + "\nAssigned to:" + table.value 
+            title: "All set!",
+            text: "Table has been successfuly allocated. Details are as follows: \nBooking Name: " + obj.bookingname + "\nBooking Time: " + obj.bookingtime + "\nBooking Date: " + obj.bookingdate + "\nAmount of People: " + obj.number + "\nAssigned to:" + table.value,
+            icon: "success" 
+        })
+        .then((value) => {
+            window.open("../main.html", "_self")
         })
     }
     else{
@@ -795,6 +799,7 @@ function allocTab() {
 }
 
 function loadPopUp(table) {
+    document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
     i = table
         for(a=0;a<4;a++){
             let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + (a+6) + (i+1)
