@@ -109,15 +109,16 @@ function loadFunctionMain() {
     for(i=0;i<8;i++){
         for(a=0;a<4;a++){
             let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + (a+6) + (i+1)
-            if(JSON.parse(localStorage.getItem(str)) == null) {
+            if(JSON.parse(localStorage.getItem(str)) == null || JSON.parse(localStorage.getItem(str)) == undefined) {
                 let id = "t" + (i+1) + "." + (a+6);
                 document.getElementById(id).innerHTML = (a+6) + "PM: not booked "
             }
             else if(JSON.parse(localStorage.getItem(str)).booked == true){
                 let id = "t" + (i+1) + "." + (a+6);
-                let text = (a+6) + "PM: Booked By " + JSON.parse(localStorage.getItem(str)).bookingName + " (" + JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem(str)).bookingName)).number + " people)"
+                let text = (a+6) + "PM: Booked By " + JSON.parse(localStorage.getItem(str)).bookingName + " (" + JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem(str)).bookingName)).number + " PAX)"
                 if(text.length > 35) {
                     text = text.substring(0,33) + "..."
+                    // If you see this email me i want to know if you actually looked at the code 
                 }
                 document.getElementById(id).innerHTML = text
                 document.getElementById(id).style.fill = "red"
@@ -804,20 +805,57 @@ function loadPopUp(table) {
         for(a=0;a<4;a++){
             let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + (a+6) + (i+1)
             if(JSON.parse(localStorage.getItem(str)) == null) {
-                let id = "t" + (i+1) + "." + (a+6);
+                let id = (a+6);
                 document.getElementById(id).innerHTML = (a+6) + "PM: not booked "
             }
             else if(JSON.parse(localStorage.getItem(str)).booked == true){
-                let id = "t" + (i+1) + "." + (a+6);
-                let text = (a+6) + "PM: Booked By " + JSON.parse(localStorage.getItem(str)).bookingName + " (" + JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem(str)).bookingName)).number + " people)"
-                document.getElementById(id).innerHTML = text
+                let id = (a+6);
+                let text = (a+6) + "PM: Booked By " + JSON.parse(localStorage.getItem(str)).bookingName + " (" + JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem(str)).bookingName)).number + " PAX)"
+                sessionStorage.setItem("temp", str);
+                let result = text.link("javascript:loadBooking()")
+                document.getElementById(id).innerHTML = result
                 document.getElementById(id).style.color = "red";
                 document.getElementById(id).style.fontWeight = "bold";
             }
             else{
-                let id = "t" + (i+1) + "." + (a+6);
+                let id = (a+6);
                 document.getElementById(id).innerHTML = (a+6) + "PM: not booked "
             }
         }
     }
+
+    function loadBooking() {
+        let str = sessionStorage.getItem("temp");
+        let name = JSON.parse(localStorage.getItem(str)).bookingName
+        let obj = JSON.parse(localStorage.getItem(name))
+            swal({
+                title: "Booking Details",
+                text: "Booking Name: " + obj.bookingname + "\nBooking Time: " + obj.bookingtime + "\nBooking Date: " + obj.bookingdate + "\nAmount of People: " + obj.number + "\nTime Booked: " + obj.creationDate + "\n",
+            })
+    }
+
+    function closePopup() {
+        sessionStorage.setItem("temp", null)
+    }
  
+    function clearRecordsBefore(){
+        let date = document.getElementById("clearDate").value;
+        let keys = splitRecords();
+
+        for(i=0;i<keys.length;i++) {
+            if(JSON.parse(localStorage.getItem(keys[i])) != undefined){
+                if(JSON.parse(localStorage.getItem(keys[i])).bookingdate < date) {
+                    deleteAllocation(keys[i])
+                    localStorage.removeItem(keys[i])
+                    console.log("cleared")
+                    
+                }
+            }
+        }
+    }
+
+    function deleteAllocation(key) {
+        let obj = JSON.parse(localStorage.getItem(key))
+        let time = obj.bookingtime
+        let date = obj.bookingdate
+    }

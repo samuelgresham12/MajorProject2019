@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RManager</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body onload="loadFunction()">
+<body onload="loadPopUp(2)">
         <script src="script.js"></script>
     <div class="container-fluid" id='headermain'>
         <h1 class='display-2'> Table 3</h1>
@@ -17,16 +18,18 @@
         <br>
     <p class='lead' style="display:inline" >Welcome to RManager, the best way to manage your restaraunt. <br> <b>Your staff ID is:</b> <p style="display:inline" class='lead' id= 'stid'>StID</p></p>
     </div>
+    
 
-    <div class='container-fluid' > <br>
-        <p class='lead'>
-            <b>Table Properties:</b><br>
-            Window: False 
-            <p class=lead style="display:inline">Reserved: <p class='lead' style="display:inline" id='isres3'>...</p></p>
 
-        </p>
+    <div class='container-fluid' > <br>        
+        <b>Booking Status:</b>
+        <p x="3" y="35" id='6'>6pm</p>
+        <p x="3" y="55" id='7'>7pm</p>
+        <p x="3" y="75" id='8'>8pm</p>
+        <p x="3" y="95" id='9'>9pm</p>
+ <br><br>
 
-        <button class='btn btn-outline-secondary' value="clickme" onclick="window.close();">Close This Popup</button>
+        <button class='btn btn-outline-secondary' value="clickme" onclick="window.close()">Close This Popup</button>
     </div>
 </body>
 </html>
