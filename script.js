@@ -837,25 +837,3 @@ function loadPopUp(table) {
     function closePopup() {
         sessionStorage.setItem("temp", null)
     }
- 
-    function clearRecordsBefore(){
-        let date = document.getElementById("clearDate").value;
-        let keys = splitRecords();
-
-        for(i=0;i<keys.length;i++) {
-            if(JSON.parse(localStorage.getItem(keys[i])) != undefined){
-                if(JSON.parse(localStorage.getItem(keys[i])).bookingdate < date) {
-                    deleteAllocation(keys[i])
-                    localStorage.removeItem(keys[i])
-                    console.log("cleared")
-                    
-                }
-            }
-        }
-    }
-
-    function deleteAllocation(key) {
-        let obj = JSON.parse(localStorage.getItem(key))
-        let time = obj.bookingtime
-        let date = obj.bookingdate
-    }
