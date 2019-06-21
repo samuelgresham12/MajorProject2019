@@ -24,16 +24,13 @@ function loginEnsure() {
     } 
 }
 
+// Opens a SweetAlert modal with information about RManager
 function infoModal() {
     swal({
         title:'What is RManager?',
         text:'RManager is a tool for restaurants to create, manage and manipulate bookings. \nTo find out more, visit the docs.',
         icon: 'info',
     })
-}
-
-function regLoad() {
-    window.open("start.html", "_self")
 }
 
 // Function which is called when the button to login as admin is called. 
@@ -47,6 +44,7 @@ function loginAsAdmin() {
 // Same functionality as above.
 function goHome() {
     window.open("index.html","_self")
+    // Clears session storage (removes authentication for user/logs them out)
     sessionStorage.clear()
 
 }
@@ -68,6 +66,7 @@ function clearLocal() {
         buttons: true,
         dangermode: true}
         )
+        // Arrow function runs script after the swal has been completed
     .then((value) => {
         if(value == true) {
             localStorage.clear();
@@ -93,19 +92,20 @@ function loadFunction() {
         alert("Whoops! Something went wrong. Please login again.")
         goHome();
     }
+    // Sets any relevant fields to the required Staff ID
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
 }
 
-// Runs on main page to populate tables with correct information
+// Runs on main page to populate tables with correct information, as well as authentication
 function loadFunctionMain() {
+    // Authentication occurs here, checking that auth is set to true in localstorage
     if(sessionStorage.getItem("auth") == false || sessionStorage.getItem("auth") == null) {
         alert("Whoops! Something went wrong. Please login again.")
         goHome();
     }
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
 
-
-    //document.getElementById("t6.6").innerHTML = "this is a test"
+    // Populates tables with required information such as booking names and quantities
     for(i=0;i<8;i++){
         for(a=0;a<4;a++){
             let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + (a+6) + (i+1)
@@ -132,6 +132,7 @@ function loadFunctionMain() {
 }
 
 // This function is run when a new booking is made
+// It submits all the information and validates it
 function submitFunction() {
 
     // Here, variables are assigned from the respective document values
@@ -141,6 +142,7 @@ function submitFunction() {
     var tableLocation = document.getElementById("insideOut").value;
     var name = document.getElementById("name").value;
 
+    // Data validation occurs to ensure that all fields are appropriately populated
     if(date == null || date == "" || name == "") {
         alert("Please enter text into the fields below.");
         
@@ -162,18 +164,19 @@ function submitFunction() {
         $('#date').removeAttr('style');
         $("#name").removeAttr('style');
     }
-
-    // A console log is made of all variables for troubleshooting and recording
-    console.log(date);
-    console.log(numberOfPeople);
-    console.log(time);
-    console.log(tableLocation);
-    console.log(name);
-
     
     // Here, the program checks whether a record has already been made with the specific primary key.
+    // If it has, the user must choose a different name, or must go and delete that specific record. 
     if(localStorage.getItem(name) != null) {
-        alert("That name alrady exists in records. Please change it or clear records.")
+        swal({
+            title: "Primary Key is Taken",
+            text: "It looks like a booking already exists with that name.",
+            icon: "error",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            reverseButtons: true
+
+        })
         return;
     }
 
@@ -256,7 +259,7 @@ function submitFunction() {
         
     }
 
-
+// Runs when a booking is queried. Gets relevant data and displays it.
 function queryBooking () {
     var input = document.getElementById("inputQuery").value;
     sessionStorage.setItem('inp', input);
@@ -304,9 +307,6 @@ function queryBooking () {
 function eraseBooking() {
     var input = sessionStorage.getItem('bookingRef')
     var name = sessionStorage.getItem('inp');
-
-    console.log(name)
-    console.log(input)
 
     if(input === undefined) {
         console.log("%cERROR: Cannot find booking.", "color: red;")
