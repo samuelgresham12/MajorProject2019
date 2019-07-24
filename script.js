@@ -1,6 +1,10 @@
 // The capacity of each table
 var cap = [5,5,5,8,5,5,5,8]
 
+var succ = {
+    title: "Action Complete",
+    icon: "success"
+}
 var tabloc = {
     // The location of each table
     // True is inside
@@ -668,6 +672,10 @@ swal({
     text: "Today's date is now set to " + date + ".",
     icon: "success"
 })
+.then((value) => {
+    window.open("../main.html", "_self")
+})
+
 }
 else {
     swal({
@@ -824,16 +832,31 @@ function loadPopUp(table) {
         }
     }
 
-    function loadBooking() {
-        let str = sessionStorage.getItem("temp");
-        let name = JSON.parse(localStorage.getItem(str)).bookingName
-        let obj = JSON.parse(localStorage.getItem(name))
-            swal({
-                title: "Booking Details",
-                text: "Booking Name: " + obj.bookingname + "\nBooking Time: " + obj.bookingtime + "\nBooking Date: " + obj.bookingdate + "\nAmount of People: " + obj.number + "\nTime Booked: " + obj.creationDate + "\n",
-            })
+function loadBooking() {
+    let str = sessionStorage.getItem("temp");
+    let name = JSON.parse(localStorage.getItem(str)).bookingName
+    let obj = JSON.parse(localStorage.getItem(name))
+        swal({
+            title: "Booking Details",
+            text: "Booking Name: " + obj.bookingname + "\nBooking Time: " + obj.bookingtime + "\nBooking Date: " + obj.bookingdate + "\nAmount of People: " + obj.number + "\nTime Booked: " + obj.creationDate + "\n",
+        })
     }
 
-    function closePopup() {
-        sessionStorage.setItem("temp", null)
-    }
+function closePopup() {
+    sessionStorage.setItem("temp", null)
+}
+
+function setDateToToday() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+today = yyyy + "-" + mm + "-" + dd;
+    localStorage.setItem("//set/DateSet", today);
+
+    swal(succ)
+    .then((value) => {
+        window.open("../main.html", "_self")
+    })
+}

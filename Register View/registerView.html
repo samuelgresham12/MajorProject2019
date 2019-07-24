@@ -12,34 +12,36 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
     <script src="../script.js"></script>
+    <script src="regscript.js"></script>
 </head>
 <body>
-    <div class='container-fluid'>
+    <div class='container-fluid' id='main'>
+<h4 class='display-2'>Register View</h4>
 <div class='row'>
     <div id='buttons' class='col-sm' style='width:20%;'>
             <h6 class='display'>Mains:</h6>
         <div class='row'>
             <div class='col-sm'>
-                <button id='btn1' class='btn btn-primary' style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/153732-200.png" style="float:center;margin-right:0.5em;width:170px">Beef Burger</button>
+                <button id='btn1' class='btn btn-primary' style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/153732-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(01)'>Beef Burger</button>
             </div>
             <div class='col-sm'>
-                <button id='btn2' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/153732-200.png" style="float:center;margin-right:0.5em;width:170px">Chicken Burger</button>
+                <button id='btn2' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/153732-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(02)'>Chicken Burger</button>
             </div>
             <div class='col-sm'>
-                <button id='btn3' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/153732-200.png" style="float:center;margin-right:0.5em;width:170px">Vegetarian Burger</button>
+                <button id='btn3' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/153732-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(03)'>Vegetarian Burger</button>
             </div>
         </div>
         <br>
         <h6 class='display'>Sides:</h6>
         <div class='row'>
             <div class='col-sm'>
-                <button id='btn4' class='btn btn-primary' style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/9101-200.png" style="float:center;margin-right:0.5em;width:170px">Single Fries</button>
+                <button id='btn4' class='btn btn-primary' style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/9101-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(11)'>Single Fries</button>
             </div>
             <div class='col-sm'>
-                <button id='btn5' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/9101-200.png" style="float:center;margin-right:0.5em;width:170px">Family Fries</button>
+                <button id='btn5' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/9101-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(12)'>Family Fries</button>
             </div>
             <div class='col-sm'>
-                <button id='btn6' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/1087311-200.png" style="float:center;margin-right:0.5em;width:170px">Salad</button>
+                <button id='btn6' class='btn btn-primary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/1087311-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(13)'>Salad</button>
             </div>
         </div>
     </div>
@@ -47,24 +49,59 @@
             <h6 class='display'>Sauces:</h6>
         <div class='row'>
             <div class='col-sm'>
-                <button id='btn' class='btn btn-secondary' style='width:100%;height:210px'><img src="https://cdn0.iconfinder.com/data/icons/food-volume-1-4/48/84-512.png" style="float:center;margin-right:0.5em;width:170px">Tomato Sauce</button>
+                <button id='btn' class='btn btn-secondary' style='width:100%;height:210px'><img src="https://cdn0.iconfinder.com/data/icons/food-volume-1-4/48/84-512.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(21)'>Tomato Sauce</button>
             </div>
             <div class='col-sm'>
-                <button id='btn' class='btn btn-secondary'style='width:100%;height:210px'><img src="https://img.icons8.com/ios/420/mayonnaise.png" style="float:center;margin-right:0.5em;width:170px">Mayonnaise</button>
+                <button id='btn' class='btn btn-secondary'style='width:100%;height:210px'><img src="https://img.icons8.com/ios/420/mayonnaise.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(22)'>Mayonnaise</button>
             </div>
         </div> <br>
         <h6 class='display'>Drinks:</h6>
         <div class='row'>
             <div class='col-sm'>
-                <button id='btn' class='btn btn-secondary' style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/516768-200.png" style="float:center;margin-right:0.5em;width:170px">Iced Tea</button>
+                <button id='btn' class='btn btn-secondary' style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/516768-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(31)'>Iced Tea</button>
             </div>
             <div class='col-sm'>
-                <button id='btn' class='btn btn-secondary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/3324-200.png" style="float:center;margin-right:0.5em;width:170px">Coke</button>
+                <button id='btn' class='btn btn-secondary'style='width:100%;height:210px'><img src="https://static.thenounproject.com/png/3324-200.png" style="float:center;margin-right:0.5em;width:170px" value='clickme' onclick='addItem(32)'>Coke</button>
             </div>
         </div><br>
-        
     </div>
 </div>
+<div class='row'>
+    <div class='col-sm'>
+        <button class='btn btn-outline-secondary' style='width:100%' value='clickme' onclick='selectBooking()'>Select Table</button>
+    </div>
+    <div class='col-sm'>
+        <button class='btn btn-outline-primary' style='width:100%'>Generate Bill</button>
+    </div>
+</div>
+</div>
+
+<div class='container-fluid' style='display:none; width:80%' id='toshow' >
+    <div class='container-fluid' style='width:50%'>
+    <h4 class='display-4'>Select Table</h4>
+    <p style='text-align: center'><b>Time:</b></p>
+        
+    <select class="form-control" id='timeSelection' style="align-content:center;">
+        <option value='6'>6:00 pm</option>
+        <option value='7'>7:00 pm</option>
+        <option value='8'>8:00 pm</option>
+        <option value='9'>9:00 pm</option>
+    </select> <br>
+    
+    <p style='text-align: center'><b>Table #:</b></p> 
+    <select class="form-control" id='tab'>
+        <option value="1">Table 1</option>
+        <option value="2">Table 2</option>
+        <option value="3">Table 3</option>
+        <option value="4">Table 4</option>
+        <option value="5">Table 5</option>
+        <option value="6">Table 6</option>
+        <option value="7">Table 7</option>
+        <option value="8">Table 8</option>
+    </select> <br>   
+    
+    <button class='btn btn-outline-primary' value='clickme' onclick='settable()' style='width:10%'>Select</button>
+    </div>   
 </div>
 </body>
 </html>
