@@ -21,7 +21,7 @@ var items = {
   },
   12:{
     name: "Nuggets",
-    price: 3.25,
+    price: 2.01,
     group: "sides"
   },
   13:{
@@ -90,6 +90,21 @@ function settable() {
 function addItem(itemId) {
   
   console.log(items[itemId]);
+
+  /* 
+  -- Doesn't work --
+  if(localStorage.getItem("Bill List") == undefined || localStorage.getItem("Bill List") == null) {
+    localStorage.setItem("Bill List", [])
+    let list = JSON.parse(localStorage.getItem("Bill List"));
+    list.timetable = [];
+    list.timetable[list.timetable.length() + 1] = itemId;   
+  }
+  else {
+    let list = JSON.parse(localStorage.getItem("Bill List"));
+    list.timetable = [];
+    list.timetable[list.timetable.length() + 1] = itemId;   
+  }
+  */
 
   swal({
     title: "Item Added",

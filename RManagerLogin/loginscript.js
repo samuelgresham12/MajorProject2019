@@ -104,8 +104,8 @@ function encrypt(pass) {
     var finalstr = revarray.join();
     return finalstr;
 
-}
 
+}
 function decrypt(encpass) {
     var encarray = encpass.split("");
     var passarray = encarray.reverse();

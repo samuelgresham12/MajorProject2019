@@ -1,10 +1,21 @@
+/* 
+-------------------------------------------
+RManager Script
+By Samuel Gresham and Harry Edmonson Jones
+-------------------------------------------
+
+RManager is a restaurant management tool which streamlines the process of creating reservations, allocating tables and creating bills.
+*/
+
 // The capacity of each table
 var cap = [5,5,5,8,5,5,5,8]
 
+// A reusable general alert
 var succ = {
     title: "Action Complete",
     icon: "success"
 }
+
 var tabloc = {
     // The location of each table
     // True is inside
@@ -307,6 +318,28 @@ function queryBooking () {
         }
     }
 
+// Binary Search function for outputing bookings as a saved file
+function binarySearch (items, value) {
+    var firstIndex  = 0,
+        lastIndex   = items.length - 1,
+        middleIndex = Math.floor((lastIndex + firstIndex)/2);
+
+    while(items[middleIndex] != value && firstIndex < lastIndex)
+    {
+       if (value < items[middleIndex])
+        {
+            lastIndex = middleIndex - 1;
+        } 
+      else if (value > items[middleIndex])
+        {
+            firstIndex = middleIndex + 1;
+        }
+        middleIndex = Math.floor((lastIndex + firstIndex)/2);
+    }
+
+ return (items[middleIndex] != value) ? -1 : middleIndex;
+}
+
 // Function run when the booking is erased
 function eraseBooking() {
     var input = sessionStorage.getItem('bookingRef')
@@ -422,8 +455,6 @@ function updateFunction() {
 
             localStorage.setItem(datetime, finalnum);
 
-            
-
             console.log("Total amount of people booked for that time: " + localStorage.getItem(datetime));
             localStorage.setItem(name, JSON.stringify(bookingObject))
             swal({title: "Booking confirmed.",
@@ -436,6 +467,7 @@ function updateFunction() {
                     window.close()
                 })
         }
+        // If the user denies the confirmation dialogue, the button is faded back in and script execution is halted
         else {
             $("#submitButton").fadeIn(3000);
         }
@@ -583,6 +615,9 @@ function fadeTest() {
     }
 }
 
+// ---------------
+// The below code is not in use, but gives an example of how automatic table allocation could be set up
+// ---------------
 /*
 // This is the main function for table allocation (WIP)
 function allocate() {
@@ -646,6 +681,7 @@ function getOutsideTables(arr, result) {
 
 */
 
+// This simple function returns all bookings as a file
 function getAllBookingsFile() {
     $("#btn1").fadeOut()
     $("#btn2").fadeOut()
@@ -685,6 +721,23 @@ else {
     })
 }
 }
+
+// Sorts output for saving bookings as a file
+function selectionSort (array){
+    for(var i = 0; i < array.length; i++){
+      //set min to the current iteration of i
+      var min = i;
+      for(var j = i+1; j < array.length; j++){
+        if(array[j] < array[min]){
+         min = j;
+        }
+      }
+      var temp = array[i];
+      array[i] = array[min];
+      array[min] = temp;
+    }
+    return array;
+  };
 
 // This is run when a table allocation is made. It populates the booking name dropdown based on who is booked for that date and time.
 function fillDDown() {
@@ -736,6 +789,7 @@ function fillDDown() {
     else {}
     }
 
+// Removes options from selection box before it is filled
 function removeOptions(selectbox)
 {
     var i;
@@ -756,11 +810,13 @@ function getBookingDetails() {
     })
 }
 
+// Function which handles allocation of tables
 function allocTab() {
     let booking = document.getElementById("bookings")
     let obj = JSON.parse(localStorage.getItem(booking.value))
     let table = document.getElementById("tab")
 
+    // Checks to see if a booking has been selected
     if(booking.value == ""){
         swal({
             title: "Whoops",
@@ -770,22 +826,26 @@ function allocTab() {
         return
     }
 
+    // Checks to see that booking size is not over table capacity (table capacity defined in global array cap[])
     let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + document.getElementById("timeSelection").value + table.value
     if(obj.number > cap[table.value - 1]) {
         swal({
             title: "Over Capacity",
             text: "Too many people for that table.",
             icon: "error"
-        })
-        
+        })   
     }
+    // If there are not too many people, this is run.
     else if(localStorage.getItem(str) == "" || localStorage.getItem(str) == undefined || localStorage.getItem(str) == null){
+        // a temporary container is created which holds values before being pushed into local storage
         let cont = {
             booked: true,
             bookingName: booking.value,
             timeAllocated: Date.now()
         }
+        // The container is pushed into local storage
         localStorage.setItem(str, JSON.stringify(cont))
+        // The booking is marked as allocated
         obj.alloc = true;
         localStorage.setItem(booking.value, JSON.stringify(obj))
         
@@ -798,6 +858,7 @@ function allocTab() {
             window.open("../main.html", "_self")
         })
     }
+    // If the table is already booked, this appears for the user
     else{
         swal({
             title: "That Table is Already Booked",
@@ -807,9 +868,11 @@ function allocTab() {
     }
 }
 
+// When a table popup is opened, this script is run to populate the information within the dialogue
 function loadPopUp(table) {
     document.getElementById("stid").innerHTML = sessionStorage.getItem("stID");
     i = table
+    // A simple loop which populates information about table bookings
         for(a=0;a<4;a++){
             let str = "tableAlloc" + localStorage.getItem("//set/DateSet") + (a+6) + (i+1)
             if(JSON.parse(localStorage.getItem(str)) == null) {
@@ -832,6 +895,7 @@ function loadPopUp(table) {
         }
     }
 
+// If a booking is selected for inspection, this scipt is run to open a SweetAlert with the required information
 function loadBooking() {
     let str = sessionStorage.getItem("temp");
     let name = JSON.parse(localStorage.getItem(str)).bookingName
@@ -842,10 +906,12 @@ function loadBooking() {
         })
     }
 
+// When the popup is closed, this script is run to clear the referral value
 function closePopup() {
     sessionStorage.setItem("temp", null)
 }
 
+// If the user wants to set the date to the current date, this script is run
 function setDateToToday() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
